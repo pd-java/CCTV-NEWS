@@ -6,6 +6,10 @@ on:
     # 东八区 (UTC+8), 所以要-8小时
     - cron: '30 12 * * *'
 
+# 添加这一块，显式声明赋予代码内容写入权限
+permissions:
+  contents: write
+
 jobs:
   update:
     name: Update today cctv-news
