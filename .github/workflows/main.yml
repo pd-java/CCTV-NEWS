@@ -3,10 +3,10 @@ name: Update today cctv-news
 on:
   workflow_dispatch:
   schedule:
-    # 东八区 (UTC+8), 所以要-8小时
+    # 东八区 (UTC+8), 所以要 -8 小时
     - cron: '30 12 * * *'
 
-# 添加这一块，显式声明赋予代码内容写入权限
+# 显式声明赋予代码内容写入权限
 permissions:
   contents: write
 
@@ -14,19 +14,235 @@ jobs:
   update:
     name: Update today cctv-news
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+
+      # ========================================
+      # 1. 执行环境与触发时间诊断
+      # ========================================
+      - name: Debug workflow trigger and time
+        run: |
+          echo "=========================================="
+          echo "        GitHub Actions 执行诊断"
+          echo "=========================================="
+
+          echo ""
+          echo "【1. Workflow 触发方式】"
+          echo "github.event_name = ${{ github.event_name }}"
+
+          echo ""
+          echo "【2. 实际触发的 Cron】"
+          echo "github.event.schedule = ${{ github.event.schedule }}"
+
+          echo ""
+          echo "【3. 当前 UTC 时间】"
+          date -u "+%Y-%m-%d %H:%M:%S UTC"
+
+          echo ""
+          echo "【4. 当前北京时间】"
+          TZ=Asia/Shanghai date "+%Y-%m-%d %H:%M:%S %Z"
+
+          echo ""
+          echo "【5. Runner 本地时间】"
+          date "+%Y-%m-%d %H:%M:%S %Z"
+
+          echo ""
+          echo "【6. GitHub 运行信息】"
+          echo "Repository = ${{ github.repository }}"
+          echo "Branch     = ${{ github.ref_name }}"
+          echo "SHA        = ${{ github.sha }}"
+          echo "Run ID     = ${{ github.run_id }}"
+          echo "Run Number = ${{ github.run_number }}"
+
+          echo ""
+          echo "=========================================="
+
+      # ========================================
+      # 2. Checkout
+      # ========================================
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Log after checkout
+        run: |
+          echo "=========================================="
+          echo "【Checkout 完成】"
+          echo "当前 UTC 时间："
+          date -u "+%Y-%m-%d %H:%M:%S UTC"
+          echo "当前北京时间："
+          TZ=Asia/Shanghai date "+%Y-%m-%d %H:%M:%S %Z"
+          echo "=========================================="
+
+      # ========================================
+      # 3. Node.js
+      # ========================================
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
           node-version: 24
-      - run: npm install
-      - run: npm run index
-      - run: git config --local user.email "github-actions[bot]@github.com"
-      - run: git config --local user.name "github-actions[bot]"
-      - run: git add .
-      - run: git commit -m "AUTO UPDATE [bot]"
+
+      - name: Log Node.js environment
+        run: |
+          echo "=========================================="
+          echo "【Node.js 环境】"
+          node --version
+          npm --version
+
+          echo ""
+          echo "当前 UTC 时间："
+          date -u "+%Y-%m-%d %H:%M:%S UTC"
+
+          echo "当前北京时间："
+          TZ=Asia/Shanghai date "+%Y-%m-%d %H:%M:%S %Z"
+          echo "=========================================="
+
+      # ========================================
+      # 4. npm install
+      # ========================================
+      - name: Install dependencies
+        run: |
+          echo "=========================================="
+          echo "【开始 npm install】"
+          echo "开始 UTC 时间："
+          date -u "+%Y-%m-%d %H:%M:%S UTC"
+          echo "开始北京时间："
+          TZ=Asia/Shanghai date "+%Y-%m-%d %H:%M:%S %Z"
+          echo "=========================================="
+
+          npm install
+
+          echo ""
+          echo "【npm install 完成】"
+          echo "完成 UTC 时间："
+          date -u "+%Y-%m-%d %H:%M:%S UTC"
+          echo "完成北京时间："
+          TZ=Asia/Shanghai date "+%Y-%m-%d %H:%M:%S %Z"
+
+      # ========================================
+      # 5. npm run index
+      # ========================================
+      - name: Run update script
+        run: |
+          echo "=========================================="
+          echo "【开始 npm run index】"
+          echo "开始 UTC 时间："
+          date -u "+%Y-%m-%d %H:%M:%S UTC"
+          echo "开始北京时间："
+          TZ=Asia/Shanghai date "+%Y-%m-%d %H:%M:%S %Z"
+          echo "=========================================="
+
+          npm run index
+
+          echo ""
+          echo "【npm run index 完成】"
+          echo "完成 UTC 时间："
+          date -u "+%Y-%m-%d %H:%M:%S UTC"
+          echo "完成北京时间："
+          TZ=Asia/Shanghai date "+%Y-%m-%d %H:%M:%S %Z"
+
+      # ========================================
+      # 6. 查看 Git 文件变化
+      # ========================================
+      - name: Check git changes
+        run: |
+          echo "=========================================="
+          echo "【Git 文件变化检查】"
+
+          git status
+
+          echo ""
+          echo "【Git 文件变化详情】"
+          git diff --stat
+
+          echo ""
+          echo "当前 UTC 时间："
+          date -u "+%Y-%m-%d %H:%M:%S UTC"
+
+          echo "当前北京时间："
+          TZ=Asia/Shanghai date "+%Y-%m-%d %H:%M:%S %Z"
+
+          echo "=========================================="
+
+      # ========================================
+      # 7. Git 配置
+      # ========================================
+      - name: Configure Git
+        run: |
+          git config --local user.email "github-actions[bot]@github.com"
+          git config --local user.name "github-actions[bot]"
+
+          echo "Git 用户配置完成"
+          git config --local user.name
+          git config --local user.email
+
+      # ========================================
+      # 8. Git add
+      # ========================================
+      - name: Git add
+        run: |
+          echo "=========================================="
+          echo "【开始 git add】"
+
+          git add .
+
+          echo ""
+          echo "【暂存区状态】"
+          git status --short
+
+          echo "=========================================="
+
+      # ========================================
+      # 9. Git commit
+      # ========================================
+      - name: Git commit
+        run: |
+          echo "=========================================="
+          echo "【开始 git commit】"
+
+          git commit -m "AUTO UPDATE [bot]"
+
+          echo ""
+          echo "【Commit 完成】"
+          git log -1 --oneline
+
+          echo ""
+          echo "当前 UTC 时间："
+          date -u "+%Y-%m-%d %H:%M:%S UTC"
+
+          echo "当前北京时间："
+          TZ=Asia/Shanghai date "+%Y-%m-%d %H:%M:%S %Z"
+
+          echo "=========================================="
+
+      # ========================================
+      # 10. Push
+      # ========================================
       - name: Push master changes
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: master
+
+      # ========================================
+      # 11. 最终完成时间
+      # ========================================
+      - name: Final execution log
+        run: |
+          echo "=========================================="
+          echo "        Workflow 执行完成"
+          echo "=========================================="
+
+          echo ""
+          echo "最终 UTC 时间："
+          date -u "+%Y-%m-%d %H:%M:%S UTC"
+
+          echo ""
+          echo "最终北京时间："
+          TZ=Asia/Shanghai date "+%Y-%m-%d %H:%M:%S %Z"
+
+          echo ""
+          echo "Workflow Run ID："
+          echo "${{ github.run_id }}"
+
+          echo ""
+          echo "=========================================="
