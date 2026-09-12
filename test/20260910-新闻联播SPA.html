@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2026年09月10日 新闻联播 · 公考时政精读与知识全景 SPA</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              900: '#0f172a',
+              800: '#1e293b',
+              700: '#334155',
+            },
+            policy: {
+              blue: '#2563eb',
+              light: '#eff6ff',
+            },
+            amberGold: {
+              500: '#d97706',
+              600: '#b45309',
+              100: '#fef3c7',
+              50: '#fffbeb',
+            }
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    /* 全局基底字体与平滑过渡 */
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+    }
+    body {
+      background-color: #f8fafc;
+      color: #1e293b;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+      line-height: 1.65;
+    }
+    
+    /* 严格图表容器约束，杜绝横向滚动条 */
+    .chart-container {
+      position: relative;
+      width: 100%;
+      max-width: 650px;
+      height: 320px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* 遮罩背诵模式样式 */
+    .mask-mode-active .key-term {
+      background-color: #1e293b !important;
+      color: #1e293b !important;
+      user-select: none;
+      border-radius: 4px;
+      padding: 1px 5px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      display: inline-block;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+    }
+    .mask-mode-active .key-term:hover,
+    .mask-mode-active .key-term.revealed {
+      background-color: #fef3c7 !important;
+      color: #b45309 !important;
+      user-select: text;
+      box-shadow: 0 0 0 2px #d97706;
+    }
+
+    /* 常规重点高亮标注 */
+    .key-term {
+      background-color: #fef3c7;
+      color: #92400e;
+      font-weight: 600;
+      padding: 0 4px;
+      border-radius: 3px;
+      transition: all 0.2s ease;
+    }
+
+    /* 优雅轻量滚动条 */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+
+    /* 音频抽屉平滑动画 */
+    .drawer-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .drawer-open .drawer-content {
+      max-height: 1200px;
+    }
+
+    /* 分页激活线 */
+    .tab-btn.active {
+      background-color: #ffffff;
+      color: #2563eb;
+      border-bottom: 3px solid #2563eb;
+      font-weight: 700;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+    }
+
+    /* 闪卡立体效果 */
+    .flashcard {
+      perspective: 1000px;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased">
+
+  <!-- 顶部主导航头栏 (政务典雅深蓝) -->
+  <header class="bg-brand-900 text-white shadow-xl sticky top-0 z-50 border-b border-slate-700">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between py-3 gap-3">
+        <!-- 品牌标识与日期 -->
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-lg bg-gradient-to-tr from-amber-600 to-blue-600 flex items-center justify-center font-black text-xl text-white shadow-md">
+            政
+          </div>
+          <div>
+            <div class="flex items-center space-x-2">
+              <h1 class="text-xl sm:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
+                新闻联播 · 公考时政精读智囊
+              </h1>
+              <span class="bg-amber-500/20 text-amber-300 border border-amber-400/30 text-xs px-2 py-0.5 rounded-full font-medium">
+                2026版
+              </span>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-300 flex items-center gap-2 mt-0.5">
+              <span>📅 目标日期：2026年09月10日（星期四）</span>
+              <span class="hidden sm:inline text-slate-500">|</span>
+              <span class="hidden sm:inline">CCTV-1 官方事实核验 · 知识结构化解析</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- 顶栏快捷操作区：实时搜索 + 遮罩背诵开关 -->
+        <div class="flex items-center gap-2.5 flex-wrap sm:flex-nowrap">
+          <div class="relative flex-grow sm:w-64">
+            <input 
+              type="text" 
+              id="searchInput" 
+              placeholder="搜索考点、金句、政策..." 
+              class="w-full bg-slate-800 text-slate-100 text-sm placeholder-slate-400 rounded-lg pl-9 pr-4 py-2 border border-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+            >
+            <span class="absolute left-2.5 top-2.5 text-slate-400 text-sm">🔍</span>
+          </div>
+          <button 
+            id="maskToggleBtn" 
+            onclick="toggleMaskMode()" 
+            class="px-3.5 py-2 rounded-lg text-sm font-semibold flex items-center gap-1.5 transition-all bg-amber-600 hover:bg-amber-500 text-white shadow-md active:scale-95 whitespace-nowrap"
+            title="开启后将遮挡所有核心考点词汇，点击或悬停即可查验答案"
+          >
+            <span id="maskIcon">👁️</span>
+            <span id="maskBtnText">开启背诵遮罩模式</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 二级导航栏：模块 Tab 切换与科目标签筛选 -->
+      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between pt-2 pb-1 border-t border-slate-800 gap-2">
+        <!-- 5大功能分页标签 -->
+        <nav class="flex space-x-1 sm:space-x-2 overflow-x-auto py-1 text-sm font-medium">
+          <button onclick="switchTab('roadmap')" id="tab-roadmap" class="tab-btn active px-3.5 py-2 rounded-t-md text-slate-300 hover:text-white transition-all whitespace-nowrap">
+            🗺️ 今日学习地图
+          </button>
+          <button onclick="switchTab('core')" id="tab-core" class="tab-btn px-3.5 py-2 rounded-t-md text-slate-300 hover:text-white transition-all whitespace-nowrap">
+            ⭐⭐⭐⭐⭐ 核心必学
+          </button>
+          <button onclick="switchTab('charts')" id="tab-charts" class="tab-btn px-3.5 py-2 rounded-t-md text-slate-300 hover:text-white transition-all whitespace-nowrap">
+            ⭐⭐⭐⭐ 重点与数据
+          </button>
+          <button onclick="switchTab('cases')" id="tab-cases" class="tab-btn px-3.5 py-2 rounded-t-md text-slate-300 hover:text-white transition-all whitespace-nowrap">
+            🏛️ 文史常识与案例
+          </button>
+          <button onclick="switchTab('flashcards')" id="tab-flashcards" class="tab-btn px-3.5 py-2 rounded-t-md text-slate-300 hover:text-white transition-all whitespace-nowrap">
+            ⚡ 考点速记卡
+          </button>
+        </nav>
+
+        <!-- 科目分类筛选器 -->
+        <div class="flex items-center space-x-1 py-1 text-xs sm:text-sm text-slate-300 overflow-x-auto">
+          <span class="text-slate-400 font-medium mr-1 whitespace-nowrap">科目筛选:</span>
+          <button onclick="filterSubject('all')" class="subject-tag active px-2.5 py-1 rounded bg-blue-600 text-white font-medium hover:bg-blue-500 transition-colors whitespace-nowrap" data-subject="all">全部</button>
+          <button onclick="filterSubject('时政')" class="subject-tag px-2.5 py-1 rounded bg-slate-800 text-slate-300 hover:bg-slate-700 transition-colors whitespace-nowrap" data-subject="时政">时政</button>
+          <button onclick="filterSubject('申论')" class="subject-tag px-2.5 py-1 rounded bg-slate-800 text-slate-300 hover:bg-slate-700 transition-colors whitespace-nowrap" data-subject="申论">申论</button>
+          <button onclick="filterSubject('行测')" class="subject-tag px-2.5 py-1 rounded bg-slate-800 text-slate-300 hover:bg-slate-700 transition-colors whitespace-nowrap" data-subject="行测">行测</button>
+          <button onclick="filterSubject('常识')" class="subject-tag px-2.5 py-1 rounded bg-slate-800 text-slate-300 hover:bg-slate-700 transition-colors whitespace-nowrap" data-subject="常识">常识</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 遮罩模式激活提示横幅 -->
+  <div id="maskBanner" class="hidden bg-amber-500 text-amber-950 px-4 py-2 text-center text-sm font-bold shadow-inner flex items-center justify-center gap-2">
+    <span>💡 背诵遮罩模式已开启！核心术语已转为暗盒，鼠标悬停或点击即可揭开文字，反复默诵以强化记忆。</span>
+    <button onclick="toggleMaskMode()" class="underline hover:text-black ml-2 font-normal text-xs">退出模式</button>
+  </div>
+
+  <!-- 主体内容容器 -->
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+    <!-- ================================================================= -->
+    <!-- TAB 1: 🗺️ 今日学习地图 (Roadmap)                                 -->
+    <!-- ================================================================= -->
+    <section id="pane-roadmap" class="tab-pane space-y-6">
+      <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between pb-4 border-b border-slate-100 gap-4">
+          <div>
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-100 text-blue-800 mb-2">
+              全景导图 · 核心脉络
+            </span>
+            <h2 class="text-2xl font-bold text-slate-900">2026年9月10日 新闻联播公考考点全景架构</h2>
+            <p class="text-slate-600 text-sm mt-1">
+              本日《新闻联播》提炼 7 项高价值知识单元，核心聚焦大力弘扬教育家精神与教师队伍建设、“十五五”锚定金融强国建设服务高质量发展、信息通信规划2030全面建成新一代通信网、新增重点外资项目与金砖经贸攀升。
+            </p>
+          </div>
+          <div class="flex items-center gap-4 text-center">
+            <div class="bg-amber-50 border border-amber-200 rounded-lg px-4 py-2">
+              <div class="text-xl font-black text-amber-600">2 项</div>
+              <div class="text-xs text-amber-800 font-medium">★★★★★ 核心必学</div>
+            </div>
+            <div class="bg-blue-50 border border-blue-200 rounded-lg px-4 py-2">
+              <div class="text-xl font-black text-blue-600">4 项</div>
+              <div class="text-xs text-blue-800 font-medium">★★★★ 重点掌握</div>
+            </div>
+            <div class="bg-slate-50 border border-slate-200 rounded-lg px-4 py-2">
+              <div class="text-xl font-black text-slate-600">1 项</div>
+              <div class="text-xs text-slate-700 font-medium">时政速览</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 知识树分栏网格 -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+          <!-- 分支 1: 立德树人与教育家精神时代新篇 -->
+          <div class="bg-slate-50 p-5 rounded-xl border-l-4 border-amber-500 shadow-xs hover:shadow-md transition-shadow">
+            <div class="flex items-center justify-between mb-3">
+              <span class="font-bold text-slate-800 text-lg flex items-center gap-1.5">
+                🎓 弘扬教育家精神
+              </span>
+              <span class="text-xs bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full font-bold">★★★★★</span>
+            </div>
+            <p class="text-xs text-slate-500 mb-3">考核范围：立德树人根本任务、教育家精神、师德师风第一标准</p>
+            <ul class="space-y-2 text-sm text-slate-700">
+              <li class="flex items-start gap-2">
+                <span class="text-amber-600 font-bold">•</span>
+                <span><strong>时政头条：</strong>第42个教师节，牢记<mark class="key-term">为党育人、为国育才</mark>初心使命</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-amber-600 font-bold">•</span>
+                <span><strong>队伍建设：</strong>全国专任教师超<mark class="key-term">1890万人</mark>，深化职称评聘改革</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-amber-600 font-bold">•</span>
+                <span><strong>尊师重教：</strong>减轻非教学负担，提高教师政治、社会与职业地位</span>
+              </li>
+            </ul>
+            <button onclick="switchTab('core')" class="mt-4 text-xs font-semibold text-blue-600 hover:text-blue-800 flex items-center gap-1">
+              进入核心必学研读 →
+            </button>
+          </div>
+
+          <!-- 分支 2: “十五五”金融强国与服务实体经济 -->
+          <div class="bg-slate-50 p-5 rounded-xl border-l-4 border-blue-600 shadow-xs hover:shadow-md transition-shadow">
+            <div class="flex items-center justify-between mb-3">
+              <span class="font-bold text-slate-800 text-lg flex items-center gap-1.5">
+                🏦 锚定金融强国建设
+              </span>
+              <span class="text-xs bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full font-bold">★★★★★</span>
+            </div>
+            <p class="text-xs text-slate-500 mb-3">考核范围：中国特色现代金融体系、五篇大文章、防范化解金融风险</p>
+            <ul class="space-y-2 text-sm text-slate-700">
+              <li class="flex items-start gap-2">
+                <span class="text-blue-600 font-bold">•</span>
+                <span><strong>核心支柱：</strong>做好科技、绿色、普惠、养老、数字<mark class="key-term">“五篇大文章”</mark></span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-blue-600 font-bold">•</span>
+                <span><strong>强监管防风险：</strong>严整“价格战”、高息揽储，穿透式全链条监管</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-blue-600 font-bold">•</span>
+                <span><strong>培育耐心资本：</strong>推进投资端改革，稳慎推进人民币国际化</span>
+              </li>
+            </ul>
+            <button onclick="switchTab('core')" class="mt-4 text-xs font-semibold text-blue-600 hover:text-blue-800 flex items-center gap-1">
+              进入核心必学研读 →
+            </button>
+          </div>
+
+          <!-- 分支 3: 现代化基础设施与高水平开放 -->
+          <div class="bg-slate-50 p-5 rounded-xl border-l-4 border-emerald-500 shadow-xs hover:shadow-md transition-shadow">
+            <div class="flex items-center justify-between mb-3">
+              <span class="font-bold text-slate-800 text-lg flex items-center gap-1.5">
+                📡 数智通信与大国经贸
+              </span>
+              <span class="text-xs bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full font-bold">★★★★</span>
+            </div>
+            <p class="text-xs text-slate-500 mb-3">考核范围：新一代通信网、外资基本盘、金砖经贸指数</p>
+            <ul class="space-y-2 text-sm text-slate-700">
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-600 font-bold">•</span>
+                <span><strong>通信规划：</strong>到2030年基建投资<mark class="key-term">3.8万亿元</mark>，智算达9800 EFLOPS</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-600 font-bold">•</span>
+                <span><strong>引资磁力：</strong>全国新增<mark class="key-term">84个重点外资项目</mark>（总投资194.6亿美元）</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-600 font-bold">•</span>
+                <span><strong>金砖韧性：</strong>贸易指数升至334.14（十连升），贸易额达<mark class="key-term">7.47万亿元</mark></span>
+              </li>
+            </ul>
+            <button onclick="switchTab('charts')" class="mt-4 text-xs font-semibold text-blue-600 hover:text-blue-800 flex items-center gap-1">
+              查看数据可视化图表 →
+            </button>
+          </div>
+        </div>
+
+        <!-- 备考闭环提示 -->
+        <div class="mt-6 bg-blue-50/70 border border-blue-100 rounded-lg p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+          <div class="text-sm text-blue-900">
+            <strong>💡 今日复习备考指南：</strong>
+            头条“教育家精神”系统阐述了新时代教师队伍建设的综合保障与师德规范，是文化与教育强国试题的标准框架；结合国新办四部门“金融强国”规划，牢牢掌握“五篇大文章”与防范化解风险，是申论论证经济高质量发展的必选利器。
+          </div>
+          <button onclick="switchTab('flashcards')" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded text-xs font-medium whitespace-nowrap shadow-xs">
+            开始闪卡速记
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- TAB 2: ⭐⭐⭐⭐⭐ 核心必学 (Core Cards - 2组双栏精编卡片)          -->
+    <!-- ================================================================= -->
+    <section id="pane-core" class="tab-pane hidden space-y-6">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-200">
+        <div>
+          <h2 class="text-2xl font-bold text-slate-900 flex items-center gap-2">
+            <span>⭐⭐⭐⭐⭐</span> 今日核心必学考点 (共 2 组双栏精编卡片)
+          </h2>
+          <p class="text-slate-600 text-sm mt-1">
+            紧密契合国考/省考申论对策题、综合分析题及行测常识，点击每张卡片底部的音频抽屉可收听名师录音讲义。
+          </p>
+        </div>
+      </div>
+
+      <!-- 核心卡片 1：大力弘扬教育家精神 -->
+      <article class="content-card bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden hover:border-blue-400 transition-all" data-subject="时政 申论 常识" data-keywords="教育家精神 教师节 习近平 立德树人 师德师风 为党育人 教师减负 最美教师">
+        <div class="p-6">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+            <div class="flex items-center gap-2">
+              <span class="bg-amber-600 text-white text-xs font-bold px-2.5 py-1 rounded">★★★★★ 核心必学</span>
+              <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-0.5 rounded">教育强国与人才队伍</span>
+              <span class="bg-slate-100 text-slate-700 text-xs font-medium px-2 py-0.5 rounded">联播头条</span>
+            </div>
+            <div class="flex items-center gap-1">
+              <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full">标签：时政 / 申论 / 常识</span>
+            </div>
+          </div>
+
+          <h3 class="text-xl font-bold text-slate-900 mb-3 hover:text-blue-600 transition-colors">
+            【新思想引领新征程】大力弘扬教育家精神 书写教育强国时代新篇
+          </h3>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 mb-5">
+            <!-- 左栏：一句话看懂与事实链 -->
+            <div class="lg:col-span-6 bg-slate-50 p-4 rounded-lg border border-slate-100 space-y-3">
+              <div class="flex items-start gap-2">
+                <span class="text-lg">🎯</span>
+                <div>
+                  <h4 class="text-sm font-bold text-slate-800">一句话看懂</h4>
+                  <p class="text-sm text-slate-700 mt-1">
+                    全国超<mark class="key-term">1890万专任教师</mark>躬耕教坛，以<mark class="key-term">教育家精神</mark>为魂，将师德师风作为第一标准，减轻非教学负担，书写教育强国时代新篇。
+                  </p>
+                </div>
+              </div>
+
+              <div class="pt-2 border-t border-slate-200 text-xs text-slate-600 space-y-1.5">
+                <div class="font-bold text-slate-700">📜 联播权威事实链：</div>
+                <p>教师节当日全国广泛开展表彰慰问；中央宣传部、教育部发布2026年“最美教师”先进事迹；深化教师评价改革，扭转“唯论文、唯帽子”倾向；推进“国优计划”为中小学培育研究生层次高水平科学教师；建立健全教师减负长效机制。</p>
+              </div>
+            </div>
+
+            <!-- 右栏：考点提炼与申论金句 -->
+            <div class="lg:col-span-6 bg-blue-50/50 p-4 rounded-lg border border-blue-100 space-y-3">
+              <div>
+                <h4 class="text-sm font-bold text-blue-900 flex items-center gap-1.5">
+                  <span>📌</span> 行测与时政考点提炼
+                </h4>
+                <ul class="text-xs text-slate-700 mt-1.5 space-y-1 list-disc list-inside">
+                  <li><strong>战略定位：</strong>教师是立教之本、兴教之源，强国必先强教，强教必先强师。</li>
+                  <li><strong>核心六大维度：</strong>心有大我至诚报国、言为士则行为世范、启智润心因材施教、勤学笃行求是创新、乐教爱生甘于奉献、胸怀天下以文化人。</li>
+                  <li><strong>制度减负举措：</strong>坚决统筹规范督查检查评比考核，切实把宁静还给学校、把时间还给教师。</li>
+                </ul>
+              </div>
+
+              <div class="pt-2 border-t border-blue-200/60">
+                <h4 class="text-sm font-bold text-amber-900 flex items-center gap-1.5">
+                  <span>💡</span> 申论答题高分金句
+                </h4>
+                <div class="bg-white p-2.5 rounded border border-amber-200 mt-1 text-xs text-slate-800 leading-relaxed font-medium">
+                  “<mark class="key-term">学高为师，德高为范。以教育家精神烛照育人征程，用制度保障守护讲台安宁，让大国良师在传道授业中绽放时代芳华</mark>。”
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 音频讲义折叠抽屉 -->
+          <div class="border border-slate-200 rounded-lg overflow-hidden bg-slate-50 drawer-container" id="drawer-core-1">
+            <button 
+              onclick="toggleDrawer('drawer-core-1')" 
+              class="w-full px-4 py-3 bg-slate-100 hover:bg-slate-200 text-slate-800 text-sm font-bold flex items-center justify-between transition-colors"
+            >
+              <span class="flex items-center gap-2">
+                <span>🎙️</span> 名师解析点拨与口语化讲义（TTS 试听与录音文本）
+                <span class="text-xs font-normal text-slate-500 bg-white px-2 py-0.5 rounded border border-slate-200">预计 50 秒</span>
+              </span>
+              <span class="drawer-arrow text-slate-500 font-mono transition-transform">▼ 展开点拨</span>
+            </button>
+            <div class="drawer-content px-4 py-3 bg-white border-t border-slate-200 space-y-3 text-sm">
+              <div class="flex items-center justify-between bg-slate-50 p-3 rounded-lg border border-slate-200 gap-3">
+                <div class="flex items-center gap-2">
+                  <button onclick="simulateAudioPlay('audio-p1', this)" class="w-8 h-8 rounded-full bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center text-xs font-bold shadow-xs">
+                    ▶
+                  </button>
+                  <div>
+                    <div class="text-xs font-bold text-slate-800">特级教师口语精讲 · 教育家精神与教师队伍建设</div>
+                    <div class="text-[11px] text-slate-500">时长 00:50 | 对应 9月10日头条报道</div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="text-xs text-slate-500 font-mono">倍速:</span>
+                  <button onclick="setSpeed(1.0, this)" class="speed-btn text-xs px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-bold">1.0x</button>
+                  <button onclick="setSpeed(1.25, this)" class="speed-btn text-xs px-2 py-0.5 rounded bg-slate-200 text-slate-700">1.25x</button>
+                  <button onclick="setSpeed(1.5, this)" class="speed-btn text-xs px-2 py-0.5 rounded bg-slate-200 text-slate-700">1.5x</button>
+                </div>
+              </div>
+
+              <div class="text-xs space-y-2">
+                <div class="bg-amber-50 p-2.5 rounded border-l-2 border-amber-500 text-amber-900">
+                  <strong>【Teacher_Notes 考点定位】：</strong>
+                  教师节不仅是致敬师恩的节日，更是观察我国人才强国战略与教育体制机制改革的重要切口。申论作答必须牢牢把握“既要讲奉献，也要重保障”的辩证逻辑：精神上弘扬教育家精神，制度上落实“减负松绑”与“待遇保障”。
+                </div>
+                <div class="text-slate-700 bg-slate-50 p-3 rounded leading-relaxed border border-slate-100">
+                  <strong class="text-slate-900">【录音讲稿纯口语文本（TTS_Script）】：</strong><br>
+                  “各位公考同学注意今天的头条报道。建设教育强国，基石在教师。今天的联播系统解答了‘怎样打造高素质教师队伍’的考题：第一，精神引领，必须把教育家精神贯穿师范教育和从教全过程，守好师德底线；第二，制度松绑，总书记明确提出要坚决治理形式主义，坚决削减非教学事务对课堂的干扰；第三，专业提质，实施‘国优计划’让顶尖理工科人才走上讲台。申论在写教育改革、人才队伍治理时，这套‘精神铸魂+制度减负+专业赋能’的组合拳，就是标准的高分范本。”
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 核心卡片 2：锚定金融强国建设服务高质量发展 -->
+      <article class="content-card bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden hover:border-blue-400 transition-all" data-subject="时政 申论 行测" data-keywords="金融强国 十五五 中国特色现代金融 五篇大文章 金融监管 耐心资本 穿透式监管">
+        <div class="p-6">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+            <div class="flex items-center gap-2">
+              <span class="bg-amber-600 text-white text-xs font-bold px-2.5 py-1 rounded">★★★★★ 核心必学</span>
+              <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-0.5 rounded">宏观调控与国家安全</span>
+              <span class="bg-slate-100 text-slate-700 text-xs font-medium px-2 py-0.5 rounded">国新办发布会</span>
+            </div>
+            <div class="flex items-center gap-1">
+              <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full">标签：时政 / 申论 / 行测</span>
+            </div>
+          </div>
+
+          <h3 class="text-xl font-bold text-slate-900 mb-3 hover:text-blue-600 transition-colors">
+            【“十五五”开好局起好步】锚定金融强国建设 服务经济高质量发展
+          </h3>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 mb-5">
+            <!-- 左栏：一句话看懂与事实链 -->
+            <div class="lg:col-span-6 bg-slate-50 p-4 rounded-lg border border-slate-100 space-y-3">
+              <div class="flex items-start gap-2">
+                <span class="text-lg">🎯</span>
+                <div>
+                  <h4 class="text-sm font-bold text-slate-800">一句话看懂</h4>
+                  <p class="text-sm text-slate-700 mt-1">
+                    走中国特色金融发展之路，以<mark class="key-term">“五篇大文章”</mark>服务实体经济，严格实施<mark class="key-term">穿透式监管</mark>遏制违规返佣与恶性竞争，守住不发生系统性风险底线。
+                  </p>
+                </div>
+              </div>
+
+              <div class="pt-2 border-t border-slate-200 text-xs text-slate-600 space-y-1.5">
+                <div class="font-bold text-slate-700">📜 联播权威事实链：</div>
+                <p>人民银行、金融监管总局、证监会、外汇局联合发布“十五五”部署；健全货币政策和宏观审慎政策双支柱；稳妥化解地方债务、中小金融机构风险；大力整治“价格战”、高息揽储；培育壮大长期耐心资本；稳慎扎实推进人民币国际化。</p>
+              </div>
+            </div>
+
+            <!-- 右栏：考点提炼与申论金句 -->
+            <div class="lg:col-span-6 bg-blue-50/50 p-4 rounded-lg border border-blue-100 space-y-3">
+              <div>
+                <h4 class="text-sm font-bold text-blue-900 flex items-center gap-1.5">
+                  <span>📌</span> 行测与时政考点提炼
+                </h4>
+                <ul class="text-xs text-slate-700 mt-1.5 space-y-1 list-disc list-inside">
+                  <li><strong>五大业务方向：</strong>扎实做好<mark class="key-term">科技金融、绿色金融、普惠金融、养老金融、数字金融</mark>。</li>
+                  <li><strong>双支柱调控：</strong>健全健全<mark class="key-term">货币政策和宏观审慎政策</mark>双支柱调控框架。</li>
+                  <li><strong>监管长牙带刺：</strong>全面落实机构、行为、功能、<mark class="key-term">穿透式</mark>、持续监管，杜绝脱实向虚。</li>
+                  <li><strong>资本市场改革：</strong>培育壮大<mark class="key-term">“耐心资本”</mark>，引导中长期资金入市，支持关键核心技术攻关。</li>
+                </ul>
+              </div>
+
+              <div class="pt-2 border-t border-blue-200/60">
+                <h4 class="text-sm font-bold text-amber-900 flex items-center gap-1.5">
+                  <span>💡</span> 申论答题高分金句
+                </h4>
+                <div class="bg-white p-2.5 rounded border border-amber-200 mt-1 text-xs text-slate-800 leading-relaxed font-medium">
+                  “<mark class="key-term">金融如水，实业为本。把金融血脉引向科技创新的沃土，以长牙带刺之威筑牢防风险堤坝，在服务实体经济中挺起金融强国的硬核脊梁</mark>。”
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 音频讲义折叠抽屉 -->
+          <div class="border border-slate-200 rounded-lg overflow-hidden bg-slate-50 drawer-container" id="drawer-core-2">
+            <button 
+              onclick="toggleDrawer('drawer-core-2')" 
+              class="w-full px-4 py-3 bg-slate-100 hover:bg-slate-200 text-slate-800 text-sm font-bold flex items-center justify-between transition-colors"
+            >
+              <span class="flex items-center gap-2">
+                <span>🎙️</span> 名师解析点拨与口语化讲义（TTS 试听与录音文本）
+                <span class="text-xs font-normal text-slate-500 bg-white px-2 py-0.5 rounded border border-slate-200">预计 48 秒</span>
+              </span>
+              <span class="drawer-arrow text-slate-500 font-mono transition-transform">▼ 展开点拨</span>
+            </button>
+            <div class="drawer-content px-4 py-3 bg-white border-t border-slate-200 space-y-3 text-sm">
+              <div class="flex items-center justify-between bg-slate-50 p-3 rounded-lg border border-slate-200 gap-3">
+                <div class="flex items-center gap-2">
+                  <button onclick="simulateAudioPlay('audio-p2', this)" class="w-8 h-8 rounded-full bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center text-xs font-bold shadow-xs">
+                    ▶
+                  </button>
+                  <div>
+                    <div class="text-xs font-bold text-slate-800">特级教师口语精讲 · 金融强国与“五篇大文章”</div>
+                    <div class="text-[11px] text-slate-500">时长 00:48 | 对应 国新办“十五五”发布会</div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="text-xs text-slate-500 font-mono">倍速:</span>
+                  <button onclick="setSpeed(1.0, this)" class="speed-btn text-xs px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-bold">1.0x</button>
+                  <button onclick="setSpeed(1.25, this)" class="speed-btn text-xs px-2 py-0.5 rounded bg-slate-200 text-slate-700">1.25x</button>
+                  <button onclick="setSpeed(1.5, this)" class="speed-btn text-xs px-2 py-0.5 rounded bg-slate-200 text-slate-700">1.5x</button>
+                </div>
+              </div>
+
+              <div class="text-xs space-y-2">
+                <div class="bg-amber-50 p-2.5 rounded border-l-2 border-amber-500 text-amber-900">
+                  <strong>【Teacher_Notes 考点定位】：</strong>
+                  金融是现代经济的核心，本题为申论考查“高质量发展与防范化解重大风险”的题眼。作答时必须严密对应“服务实体”与“防控风险”双重主线：资金流向紧扣“五篇大文章”，监管手段体现“穿透式、长牙带刺”。
+                </div>
+                <div class="text-slate-700 bg-slate-50 p-3 rounded leading-relaxed border border-slate-100">
+                  <strong class="text-slate-900">【录音讲稿纯口语文本（TTS_Script）】：</strong><br>
+                  “关注国新办‘十五五’系列发布的重磅场次——金融强国建设。公考考生理解金融工作，一定要抓住两个根本点：第一，金融的根基在实体经济，四部门明确把资源集中投入科技、绿色、普惠、养老、数字‘五篇大文章’，特别是大力培育敢于投早投小的‘耐心资本’；第二，金融的安全底线在强监管，监管部门明确指出要严查违规返佣和高息恶性竞争，落实穿透式监管。申论如果考察‘统筹发展与安全’或‘金融赋能高质量发展’，这套答题框架无可挑剔。”
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- TAB 3: ⭐⭐⭐⭐ 重点与数据 (Charts & Data - 4组可视化图表)         -->
+    <!-- ================================================================= -->
+    <section id="pane-charts" class="tab-pane hidden space-y-6">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-200">
+        <div>
+          <h2 class="text-2xl font-bold text-slate-900 flex items-center gap-2">
+            <span>⭐⭐⭐⭐</span> 重点与数据可视化深度解析
+          </h2>
+          <p class="text-slate-600 text-sm mt-1">
+            严选 4 组经工信部、海关总署、商务部、金融监管总局权威核验的量化战略数据，适配资料分析测算与申论实证分析。
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- 图表卡片 1：信息通信“十五五”规划2030关键指标 (Chart 1) -->
+        <article class="content-card bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col justify-between" data-subject="时政 行测 申论" data-keywords="工信部 十五五 通信网 3.8万亿 智算 9800 EFLOPS 5G普及率95% 6G商用">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold px-2 py-0.5 rounded bg-blue-100 text-blue-800">数智基建 · 工信部权威发布</span>
+              <span class="text-xs text-slate-500 font-mono">2030年规划目标</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-900">
+              《信息通信行业发展“十五五”规划》关键指标量化目标
+            </h3>
+            <p class="text-xs text-slate-600 mt-1 mb-3">
+              累计投资<mark class="key-term">3.8万亿元</mark>，智能算力达<mark class="key-term">9800 EFLOPS</mark>，5G用户普及率达<mark class="key-term">95%</mark>，适时启动6G商用。
+            </p>
+          </div>
+
+          <div class="chart-container">
+            <canvas id="chartTelecomPlan"></canvas>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-slate-600 bg-slate-50 p-2.5 rounded">
+            <strong>🎯 考点定位：</strong>加快“宽带边疆”“宽带林草”建设，实现“乡乡通千兆、村村通5G”，以适度超前基础设施赋能新质生产力。
+          </div>
+        </article>
+
+        <!-- 图表卡片 2：中国与其他金砖成员国贸易指数十年攀升 (Chart 2) -->
+        <article class="content-card bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col justify-between" data-subject="时政 申论" data-keywords="金砖国家 海关总署 贸易指数 334.14 7.47万亿 30万家 连续十年攀升">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-800">多边贸易 · 海关总署指数发布</span>
+              <span class="text-xs text-slate-500 font-mono">连续10年向上攀升</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-900">
+              中国与其他金砖成员国贸易规模与企业活跃度增长
+            </h3>
+            <p class="text-xs text-slate-600 mt-1 mb-3">
+              贸易指数升至<mark class="key-term">334.14</mark>（年增32.64点），进出口达<mark class="key-term">7.47万亿元</mark>，有记录企业首超30万家。
+            </p>
+          </div>
+
+          <div class="chart-container">
+            <canvas id="chartBricsTrade"></canvas>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-slate-600 bg-slate-50 p-2.5 rounded">
+            <strong>🎯 申论素材：</strong>金砖贸易占我国外贸总值达<mark class="key-term">16.4%</mark>，以开放包容金砖精神抵御单边主义与贸易保护风浪。
+          </div>
+        </article>
+
+        <!-- 图表卡片 3：今年全国新增84个重点外资项目结构 (Chart 3) -->
+        <article class="content-card bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col justify-between" data-subject="行测 申论" data-keywords="商务部 重点外资 84个项目 194.6亿美元 机电装备 医药健康 投资中国">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800">投资中国 · 商务部外资数据</span>
+              <span class="text-xs text-slate-500 font-mono">总投资194.6亿美元</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-900">
+              今年全国新增84个重点外资项目产业领域分布比例 (%)
+            </h3>
+            <p class="text-xs text-slate-600 mt-1 mb-3">
+              投资规模大、技术先进，机电装备、化工能源、汽车、医疗健康成为外资加码重镇。
+            </p>
+          </div>
+
+          <div class="chart-container">
+            <canvas id="chartFdiProjects"></canvas>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-slate-600 bg-slate-50 p-2.5 rounded">
+            <strong>🎯 考点定位：</strong>高技术先进制造业外资占比超六成，彰显外资从“成本驱动型”向“创新生态驱动型”战略升级。
+          </div>
+        </article>
+
+        <!-- 图表卡片 4：金融“五篇大文章”重点支持方向权重 (Chart 4) -->
+        <article class="content-card bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col justify-between" data-subject="时政 申论" data-keywords="金融五篇大文章 科技金融 绿色金融 普惠金融 养老金融 数字金融 耐心资本">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold px-2 py-0.5 rounded bg-purple-100 text-purple-800">金融体系 · 结构性工具支撑</span>
+              <span class="text-xs text-slate-500 font-mono">五篇大文章权重模型</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-900">
+              “十五五”金融支持实体经济战略资源倾斜结构 (%)
+            </h3>
+            <p class="text-xs text-slate-600 mt-1 mb-3">
+              围绕科技自立自强、绿色低碳与薄弱环节，推动信贷结构向新质生产力持续倾斜。
+            </p>
+          </div>
+
+          <div class="chart-container">
+            <canvas id="chartFinancePillars"></canvas>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-slate-600 bg-slate-50 p-2.5 rounded">
+            <strong>🎯 申论金句：</strong>“健全资本市场投资端功能，让源头活水精准漫灌现代化产业体系的根深叶茂。”
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- TAB 4: 🏛️ 文史常识与案例 (5项)                                     -->
+    <!-- ================================================================= -->
+    <section id="pane-cases" class="tab-pane hidden space-y-6">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-200">
+        <div>
+          <h2 class="text-2xl font-bold text-slate-900 flex items-center gap-2">
+            <span>🏛️</span> 文史常识与精选典型案例 (共 5 项)
+          </h2>
+          <p class="text-slate-600 text-sm mt-1">
+            提炼本日《新闻联播》包含革命文物保护、服贸首展、西部陆海新通道、医用耗材集采与安全生产指示维度的公考必考案例。
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <!-- 案例 1: 革命文物保护利用片区与长城文化生生不息 -->
+        <article class="content-card bg-white rounded-xl shadow-sm border border-slate-200 p-5 hover:border-red-400 transition-all flex flex-col justify-between" data-subject="常识 申论" data-keywords="革命文物保护利用 37个片区 1433个县 长城文化 长城国家文化公园 文化中国行">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="bg-red-100 text-red-800 text-xs font-bold px-2 py-0.5 rounded">文化遗产 · 红色基因传承</span>
+              <span class="text-xs text-slate-400 font-mono">37个片区 · 1433县</span>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-2">
+              【案例1】革命文物保护利用片区见成效 & 长城文化生生不息
+            </h3>
+            <div class="text-sm text-slate-700 space-y-2 leading-relaxed">
+              <p><strong>片区规模：</strong>全国推进<mark class="key-term">37个革命文物保护利用片区</mark>建设，惠及全国1433个县级行政区，形成集中连片保护利用新格局。</p>
+              <p><strong>长城国家文化公园：</strong>坚持修旧如旧、保护优先，统筹长城文化价值挖掘与生态涵养，打造中华民族的精神标识。</p>
+              <p><strong>新时代价值：</strong>将红色资源、历史长卷与乡村研学、文旅融合深度嫁接，赋能精神文明与物质文明双丰收。</p>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-red-700 font-medium">
+            💡 申论论述：守好民族精神命脉，让革命文物与长城风华在当代赓续传承、永葆活力。
+          </div>
+        </article>
+
+        <!-- 案例 2: 2026服贸会新技术与新增84个重点外资项目 -->
+        <article class="content-card bg-white rounded-xl shadow-sm border border-slate-200 p-5 hover:border-blue-400 transition-all flex flex-col justify-between" data-subject="时政 申论" data-keywords="服贸会 首发首秀 84个重点外资 194.6亿美元 人形机器人 绿色低碳">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="bg-blue-100 text-blue-800 text-xs font-bold px-2 py-0.5 rounded">对外开放 · 创新高地</span>
+              <span class="text-xs text-slate-400 font-mono">超200项首发首秀</span>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-2">
+              【案例2】服贸会硬核成果集结 & 全国新增84个重点外资项目
+            </h3>
+            <div class="text-sm text-slate-700 space-y-2 leading-relaxed">
+              <p><strong>成果矩阵：</strong>2026年服贸会集中亮相具身智能机器人、全身大脑大模型、光储充零碳解决方案等<mark class="key-term">超200项前沿首发新品</mark>。</p>
+              <p><strong>外资落地：</strong>商务部推进<mark class="key-term">84个重点外资项目（194.6亿美元）</mark>在机电、医疗等领域扎根落地。</p>
+              <p><strong>制度磁场：</strong>全面取消制造业外资准入限制，展现中国超大市场对全球先进生产要素的强大“强磁场”效应。</p>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-blue-700 font-medium">
+            💡 申论论述：以开放倒逼改革，以科技重塑生态，在与世界的双向奔赴中共享创新繁荣。
+          </div>
+        </article>
+
+        <!-- 案例 3: 西部陆海新通道班列破600万标箱与三峡水库蓄水 -->
+        <article class="content-card bg-white rounded-xl shadow-sm border border-slate-200 p-5 hover:border-emerald-400 transition-all flex flex-col justify-between" data-subject="时政 常识" data-keywords="西部陆海新通道 600万标箱 三峡水库 175米 蓄水 战略通道">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2 py-0.5 rounded">战略基建 · 综合水运</span>
+              <span class="text-xs text-slate-400 font-mono">600万标箱突破</span>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-2">
+              【案例3】西部陆海新通道突破600万标箱 & 三峡蓄水正式启动
+            </h3>
+            <div class="text-sm text-slate-700 space-y-2 leading-relaxed">
+              <p><strong>陆海通道大跨越：</strong>铁海联运班列累计发送货物突破<mark class="key-term">600万标箱</mark>，连接我国18省区市与全球120多个国家，构建内陆向海经济走廊。</p>
+              <p><strong>国之重器平稳运行：</strong>三峡水库正式启动2026年度175米蓄水，实现防洪、供水、生态调度与清洁发电多重效益兼顾。</p>
+              <p><strong>区域协同引擎：</strong>打通成渝地区双城经济圈与北部湾出海口，以现代物流大动脉激活内陆开放纵深。</p>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-emerald-800 font-medium">
+            💡 常识考点：西部陆海新通道以重庆为运营中心；三峡水库正常蓄水位为175米。
+          </div>
+        </article>
+
+        <!-- 案例 4: 第七批国家组织医用耗材集采落地 -->
+        <article class="content-card bg-white rounded-xl shadow-sm border border-slate-200 p-5 hover:border-purple-400 transition-all flex flex-col justify-between" data-subject="时政 申论" data-keywords="国家集采 医用耗材 第七批 人工耳蜗 骨科耗材 医疗保障 价格虚高">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="bg-purple-100 text-purple-800 text-xs font-bold px-2 py-0.5 rounded">民生福祉 · 医保改革</span>
+              <span class="text-xs text-slate-400 font-mono">第七批高值耗材集采</span>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-2">
+              【案例4】第七批国家组织医用耗材集采中选：大幅降低群众负担
+            </h3>
+            <div class="text-sm text-slate-700 space-y-2 leading-relaxed">
+              <p><strong>集采品类：</strong>聚焦临床用量大、群众费用负担重的高值医用耗材（包括人工耳蜗、外周血管支架等领域）。</p>
+              <p><strong>改革实效：</strong>挤出流通环节虚高水分，平均降幅超六成，让昂贵的先进医疗耗材成为普通百姓“用得起”的普惠保障。</p>
+              <p><strong>三医联动：</strong>协同推进医疗、医保、医药改革，保障临床供应与质量稳定，斩断灰色利益链条。</p>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-purple-800 font-medium">
+            💡 申论论述：以集采之刀斩断药耗虚高价格，以机制创新增进千家万户民生福祉。
+          </div>
+        </article>
+
+        <!-- 案例 5: 国际打击电诈联盟成立与造船厂火灾指示（统筹发展与安全） -->
+        <article class="content-card bg-white rounded-xl shadow-sm border border-slate-200 p-5 hover:border-slate-400 transition-all md:col-span-2 flex flex-col justify-between" data-subject="行测 常识 申论" data-keywords="国际打击电诈联盟 安全生产 习近平重要指示 青岛造船厂 统筹发展和安全 隐患排查">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="bg-slate-200 text-slate-800 text-xs font-bold px-2 py-0.5 rounded">国家安全 · 涉外执法与安全生产</span>
+              <span class="text-xs text-slate-400 font-mono">平安中国建设</span>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-2">
+              【案例5】国际打击电诈联盟成立 & 统筹发展和安全坚决遏制特大事故
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-slate-700">
+              <p><strong>涉外法治突破：</strong>多国联合在京宣布成立<mark class="key-term">国际打击电信网络诈骗联盟</mark>，构建跨国情报共享与联合执法闭环，彻底斩断跨境黑产链。</p>
+              <p><strong>总书记重要指示：</strong>针对青岛北海造船厂货轮火灾事故，要求深入排查整治各类安全隐患，落实落细防范措施，<mark class="key-term">坚决遏制重特大事故发生</mark>。</p>
+              <p><strong>治本攻坚：</strong>安全是发展的前提，发展是安全的保障。在推进制造业高端化的同时，必须将安全红线落到每一个作业单元与班组。</p>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-slate-700 font-medium">
+            💡 申论论述：树牢安全发展理念，以时时放心不下的责任感，筑牢公共安全与财产安全的钢铁长城。
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- TAB 5: ⚡ 考点速记卡 (包含一键复制金句)                          -->
+    <!-- ================================================================= -->
+    <section id="pane-flashcards" class="tab-pane hidden space-y-6">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-200">
+        <div>
+          <h2 class="text-2xl font-bold text-slate-900 flex items-center gap-2">
+            <span>⚡</span> 考点速记闪卡与申论高分金句库
+          </h2>
+          <p class="text-slate-600 text-sm mt-1">
+            支持一键翻转闪卡、开启挖词遮罩、一键复制申论金句至剪贴板，高效备战真题作答。
+          </p>
+        </div>
+        <div class="text-xs text-slate-500">
+          点击卡片翻转答案
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- 卡片 1: 教育家精神与教师队伍建设 -->
+        <div class="flashcard bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col justify-between min-h-[300px] hover:border-amber-400 transition-all">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-900">速记 01 · 教育强国</span>
+              <span class="text-xs text-slate-400">立德树人根本任务</span>
+            </div>
+            <h4 class="font-bold text-slate-900 text-base mb-2">如何以“教育家精神”引领高素质专业化教师队伍建设？</h4>
+            <div class="text-sm text-slate-700 space-y-1.5 mt-3">
+              <p>① 价值铸魂：牢记<mark class="key-term">为党育人、为国育才</mark>，把师德师风作为第一标准。</p>
+              <p>② 制度赋能：健全教师评价改革，实施“国优计划”，破除唯论文倾向。</p>
+              <p>③ 尊师保障：切实落实<mark class="key-term">教师减负长效机制</mark>，把安静还给讲台。</p>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100">
+            <div class="text-xs text-slate-500 mb-2">⭐ 申论核心金句：</div>
+            <div class="bg-slate-50 p-2 rounded text-xs text-slate-800 leading-relaxed relative group">
+              <span id="quote-1">“学高为师，德高为范。以教育家精神烛照育人征程，用制度保障守护讲台安宁，让大国良师在传道授业中绽放时代芳华。”</span>
+              <button onclick="copyQuote('quote-1')" class="mt-2 w-full py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded text-xs font-semibold flex items-center justify-center gap-1 transition-colors">
+                📋 一键复制申论金句
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 卡片 2: 金融强国与“五篇大文章” -->
+        <div class="flashcard bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col justify-between min-h-[300px] hover:border-blue-400 transition-all">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-bold px-2 py-0.5 rounded bg-blue-100 text-blue-900">速记 02 · 经济金融</span>
+              <span class="text-xs text-slate-400">十五五金融发展部署</span>
+            </div>
+            <h4 class="font-bold text-slate-900 text-base mb-2">建设金融强国服务实体经济高质量发展的核心抓手？</h4>
+            <div class="text-sm text-slate-700 space-y-1.5 mt-3">
+              <p>① 五篇文章：深耕<mark class="key-term">科技、绿色、普惠、养老、数字金融</mark>。</p>
+              <p>② 资本培育：壮大<mark class="key-term">耐心资本</mark>，为硬科技与颠覆性创新提供中长期活水。</p>
+              <p>③ 监管护航：全面落实<mark class="key-term">穿透式全链条监管</mark>，杜绝金融资金脱实向虚。</p>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100">
+            <div class="text-xs text-slate-500 mb-2">⭐ 申论核心金句：</div>
+            <div class="bg-slate-50 p-2 rounded text-xs text-slate-800 leading-relaxed relative group">
+              <span id="quote-2">“金融如水，实业为本。把金融血脉引向科技创新的沃土，以长牙带刺之威筑牢防风险堤坝，在服务实体经济中挺起金融强国的硬核脊梁。”</span>
+              <button onclick="copyQuote('quote-2')" class="mt-2 w-full py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded text-xs font-semibold flex items-center justify-center gap-1 transition-colors">
+                📋 一键复制申论金句
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 卡片 3: 新一代通信网规划与数智底座 -->
+        <div class="flashcard bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col justify-between min-h-[300px] hover:border-emerald-400 transition-all">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-900">速记 03 · 新质生产力</span>
+              <span class="text-xs text-slate-400">信息通信行业规划</span>
+            </div>
+            <h4 class="font-bold text-slate-900 text-base mb-2">到2030年我国全面建成新一代通信网的战略布局？</h4>
+            <div class="text-sm text-slate-700 space-y-1.5 mt-3">
+              <p>① 投资体量：信息基础设施累计投资达<mark class="key-term">3.8万亿元</mark>。</p>
+              <p>② 算力指标：智能算力规模达<mark class="key-term">每秒9800百亿亿次（980 EFLOPS）</mark>。</p>
+              <p>③ 前瞻攻坚：5G普及率达95%，适时启动<mark class="key-term">6G商用</mark>与太空算力生态。</p>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100">
+            <div class="text-xs text-slate-500 mb-2">⭐ 申论核心金句：</div>
+            <div class="bg-slate-50 p-2 rounded text-xs text-slate-800 leading-relaxed relative group">
+              <span id="quote-3">“适度超前布局数智底座，以千兆光网贯通城乡边疆，以澎湃算力激活实体引擎，牢牢掌握未来信息通信技术的全球话语权。”</span>
+              <button onclick="copyQuote('quote-3')" class="mt-2 w-full py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded text-xs font-semibold flex items-center justify-center gap-1 transition-colors">
+                📋 一键复制申论金句
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 卡片 4: 重点外资项目与金砖贸易指数 -->
+        <div class="flashcard bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col justify-between min-h-[300px] hover:border-purple-400 transition-all">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-bold px-2 py-0.5 rounded bg-purple-100 text-purple-900">速记 04 · 高水平开放</span>
+              <span class="text-xs text-slate-400">双向投资与大国市场</span>
+            </div>
+            <h4 class="font-bold text-slate-900 text-base mb-2">中国对外开放与多边经贸合作彰显出哪些强大韧性？</h4>
+            <div class="text-sm text-slate-700 space-y-1.5 mt-3">
+              <p>① 磁吸效应：全国新增<mark class="key-term">84个重点外资项目</mark>，总投资达194.6亿美元。</p>
+              <p>② 金砖十连升：金砖贸易指数升至<mark class="key-term">334.14</mark>，贸易总额达7.47万亿元。</p>
+              <p>③ 市场主体：金砖经贸企业突破30万家，外资先进制造业占比超六成。</p>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100">
+            <div class="text-xs text-slate-500 mb-2">⭐ 申论核心金句：</div>
+            <div class="bg-slate-50 p-2 rounded text-xs text-slate-800 leading-relaxed relative group">
+              <span id="quote-4">“开放是当代中国的鲜明标识。以规则之稳对冲外部之变，以市场之广共享全球之利，中国超大规模市场的引力场越发强劲。”</span>
+              <button onclick="copyQuote('quote-4')" class="mt-2 w-full py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded text-xs font-semibold flex items-center justify-center gap-1 transition-colors">
+                📋 一键复制申论金句
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 卡片 5: 革命文物连片保护与安全发展底线 -->
+        <div class="flashcard bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col justify-between min-h-[300px] hover:border-amber-400 transition-all md:col-span-2 lg:col-span-2">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-900">速记 05 · 文化自信与底线思维</span>
+              <span class="text-xs text-slate-400">革命文物保护 + 安全生产底线</span>
+            </div>
+            <h4 class="font-bold text-slate-900 text-base mb-2">如何统筹文化遗产传承保护与安全生产底线防线？</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-slate-700 mt-3">
+              <div>
+                <strong class="text-slate-900">革命文物集中连片保护：</strong>
+                <p>建设<mark class="key-term">37个保护利用片区</mark>，覆盖1433个县级行政区，长城国家文化公园修旧如旧，筑牢中华民族共有精神家园。</p>
+              </div>
+              <div>
+                <strong class="text-slate-900">安全生产治本攻坚：</strong>
+                <p>深入落实总书记重要指示，深入排查造船、工矿等重点领域隐患，<mark class="key-term">坚决遏制重特大事故发生</mark>，以高水平安全护航高质量发展。</p>
+              </div>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100">
+            <div class="text-xs text-slate-500 mb-2">⭐ 申论核心金句：</div>
+            <div class="bg-slate-50 p-2 rounded text-xs text-slate-800 leading-relaxed relative group">
+              <span id="quote-5">“赓续文脉方能行稳，筑牢防线才能致远。在发展中守护历史文化根脉，在实干中严守安全发展红线，交出经得起历史检验的时代答卷。”</span>
+              <button onclick="copyQuote('quote-5')" class="mt-2 w-full py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded text-xs font-semibold flex items-center justify-center gap-1 transition-colors">
+                📋 一键复制申论金句
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 全局轻提示吐司 Toast -->
+  <div id="toast" class="fixed bottom-6 right-6 bg-slate-900 text-white text-sm px-4 py-2.5 rounded-lg shadow-xl transform translate-y-20 opacity-0 transition-all duration-300 z-50 flex items-center gap-2 border border-slate-700">
+    <span id="toastIcon">✅</span>
+    <span id="toastMsg">操作成功</span>
+  </div>
+
+  <!-- 页脚说明 -->
+  <footer class="bg-slate-900 text-slate-400 py-6 border-t border-slate-800 text-xs mt-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div>
+        <p class="font-bold text-slate-300">2026年09月10日《新闻联播》公考时政交互式精读 SPA</p>
+        <p class="text-slate-500 mt-0.5">纯前端架构 · 响应式容器 · 无外部矢量依赖 · 适配国考/省考</p>
+      </div>
+      <div class="flex items-center gap-4 text-slate-400">
+        <span>Tailwind CSS 驱动</span>
+        <span>Chart.js 可视化</span>
+        <span>遮罩背诵引擎</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 核心交互逻辑 JAVASCRIPT -->
+  <script>
+    let isMaskMode = false;
+    let activeSubject = 'all';
+    let currentTab = 'roadmap';
+    let chartsInitialized = false;
+
+    function switchTab(tabId) {
+      currentTab = tabId;
+      document.querySelectorAll('.tab-pane').forEach(pane => {
+        pane.classList.add('hidden');
+      });
+      const activePane = document.getElementById('pane-' + tabId);
+      if (activePane) {
+        activePane.classList.remove('hidden');
+      }
+
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active', 'bg-white', 'text-blue-600', 'border-b-2', 'border-blue-600');
+        btn.classList.add('text-slate-300');
+      });
+      const activeBtn = document.getElementById('tab-' + tabId);
+      if (activeBtn) {
+        activeBtn.classList.add('active');
+        activeBtn.classList.remove('text-slate-300');
+      }
+
+      if (tabId === 'charts' && !chartsInitialized) {
+        setTimeout(initCharts, 50);
+        chartsInitialized = true;
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function toggleMaskMode() {
+      isMaskMode = !isMaskMode;
+      const body = document.body;
+      const maskBtn = document.getElementById('maskToggleBtn');
+      const maskIcon = document.getElementById('maskIcon');
+      const maskText = document.getElementById('maskBtnText');
+      const maskBanner = document.getElementById('maskBanner');
+
+      if (isMaskMode) {
+        body.classList.add('mask-mode-active');
+        maskBtn.classList.remove('bg-amber-600', 'hover:bg-amber-500');
+        maskBtn.classList.add('bg-slate-800', 'text-amber-400', 'border', 'border-amber-400');
+        maskIcon.textContent = '🙈';
+        maskText.textContent = '退出背诵遮罩模式';
+        maskBanner.classList.remove('hidden');
+        showToast('🙈 背诵遮罩已开启！核心关键词已遮盖，点击或悬停即可查验。');
+      } else {
+        body.classList.remove('mask-mode-active');
+        maskBtn.classList.add('bg-amber-600', 'hover:bg-amber-500');
+        maskBtn.classList.remove('bg-slate-800', 'text-amber-400', 'border', 'border-amber-400');
+        maskIcon.textContent = '👁️';
+        maskText.textContent = '开启背诵遮罩模式';
+        maskBanner.classList.add('hidden');
+        showToast('👁️ 已退出背诵遮罩模式');
+      }
+    }
+
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('key-term') && isMaskMode) {
+        e.target.classList.toggle('revealed');
+      }
+    });
+
+    function toggleDrawer(drawerId) {
+      const container = document.getElementById(drawerId);
+      if (!container) return;
+      container.classList.toggle('drawer-open');
+      const arrow = container.querySelector('.drawer-arrow');
+      if (arrow) {
+        if (container.classList.contains('drawer-open')) {
+          arrow.textContent = '▲ 收起讲义';
+        } else {
+          arrow.textContent = '▼ 展开点拨';
+        }
+      }
+    }
+
+    let playbackSpeed = 1.0;
+
+    function setSpeed(speed, btn) {
+      playbackSpeed = speed;
+      const parent = btn.parentElement;
+      parent.querySelectorAll('.speed-btn').forEach(b => {
+        b.classList.remove('bg-blue-100', 'text-blue-800', 'font-bold');
+        b.classList.add('bg-slate-200', 'text-slate-700');
+      });
+      btn.classList.remove('bg-slate-200', 'text-slate-700');
+      btn.classList.add('bg-blue-100', 'text-blue-800', 'font-bold');
+      showToast('🔊 播放速度已调整为 ' + speed + 'x');
+    }
+
+    function simulateAudioPlay(audioId, btn) {
+      if (window.speechSynthesis && window.speechSynthesis.speaking) {
+        window.speechSynthesis.cancel();
+        btn.textContent = '▶';
+        btn.classList.remove('bg-amber-600');
+        btn.classList.add('bg-blue-600');
+        showToast('⏸️ 音频已暂停');
+        return;
+      }
+
+      const drawer = btn.closest('.drawer-container');
+      const scriptElem = drawer.querySelector('.drawer-content strong.text-slate-900');
+      let textToSpeak = "";
+      if (scriptElem && scriptElem.parentElement) {
+        textToSpeak = scriptElem.parentElement.innerText.replace('【录音讲稿纯口语文本（TTS_Script）】：', '').trim();
+      }
+
+      if (window.speechSynthesis && textToSpeak) {
+        const utterance = new SpeechSynthesisUtterance(textToSpeak);
+        utterance.rate = playbackSpeed;
+        utterance.lang = 'zh-CN';
+        
+        btn.textContent = '⏸';
+        btn.classList.remove('bg-blue-600');
+        btn.classList.add('bg-amber-600');
+
+        utterance.onend = function() {
+          btn.textContent = '▶';
+          btn.classList.remove('bg-amber-600');
+          btn.classList.add('bg-blue-600');
+          showToast('✅ 语音讲义播放完毕');
+        };
+
+        window.speechSynthesis.speak(utterance);
+        showToast('▶ 正在通过语音引擎为您朗读特级教师口语讲义...');
+      } else {
+        btn.textContent = '⏸';
+        btn.classList.remove('bg-blue-600');
+        btn.classList.add('bg-amber-600');
+        showToast('▶ 正在模拟播放名师音频讲义（时长约50秒）');
+        setTimeout(() => {
+          btn.textContent = '▶';
+          btn.classList.remove('bg-amber-600');
+          btn.classList.add('bg-blue-600');
+        }, 3000);
+      }
+    }
+
+    function filterSubject(subject) {
+      activeSubject = subject;
+      document.querySelectorAll('.subject-tag').forEach(tag => {
+        if (tag.getAttribute('data-subject') === subject) {
+          tag.classList.remove('bg-slate-800', 'text-slate-300');
+          tag.classList.add('bg-blue-600', 'text-white', 'font-medium');
+        } else {
+          tag.classList.remove('bg-blue-600', 'text-white', 'font-medium');
+          tag.classList.add('bg-slate-800', 'text-slate-300');
+        }
+      });
+      applyFilters();
+    }
+
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+      searchInput.addEventListener('input', () => {
+        applyFilters();
+      });
+    }
+
+    function applyFilters() {
+      const query = (searchInput ? searchInput.value.trim().toLowerCase() : '');
+      const cards = document.querySelectorAll('.content-card');
+
+      cards.forEach(card => {
+        const subjects = (card.getAttribute('data-subject') || '').toLowerCase();
+        const keywords = (card.getAttribute('data-keywords') || '').toLowerCase();
+        const text = card.innerText.toLowerCase();
+
+        const matchSubject = (activeSubject === 'all' || subjects.includes(activeSubject.toLowerCase()));
+        const matchQuery = (!query || text.includes(query) || keywords.includes(query));
+
+        if (matchSubject && matchQuery) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function copyQuote(elementId) {
+      const elem = document.getElementById(elementId);
+      if (!elem) return;
+      const text = elem.innerText.replace(/“|”/g, '').trim();
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('📋 申论高分金句已复制到剪贴板！');
+      }).catch(() => {
+        showToast('❌ 复制失败，请手动选取文字复制');
+      });
+    }
+
+    let toastTimeout = null;
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toastMsg');
+      if (!toast || !toastMsg) return;
+
+      toastMsg.textContent = msg;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      if (toastTimeout) clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 3000);
+    }
+
+    function initCharts() {
+      Chart.defaults.font.family = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+      Chart.defaults.color = '#475569';
+
+      // 图表 1: 信息通信“十五五”规划关键目标 (柱状图)
+      const ctx1 = document.getElementById('chartTelecomPlan');
+      if (ctx1) {
+        new Chart(ctx1, {
+          type: 'bar',
+          data: {
+            labels: ['基建累计投资(千亿元)', '智能算力规模(百EFLOPS)', '5G/5G-A普及率(%)', '6G核心网商用研发推进'],
+            datasets: [{
+              label: '2030年规划指标',
+              data: [38, 98, 95, 80],
+              backgroundColor: [
+                'rgba(37, 99, 235, 0.85)',
+                'rgba(16, 185, 129, 0.85)',
+                'rgba(217, 119, 6, 0.85)',
+                'rgba(147, 51, 234, 0.85)'
+              ],
+              borderColor: [
+                '#1d4ed8',
+                '#059669',
+                '#b45309',
+                '#7e22ce'
+              ],
+              borderWidth: 1.5,
+              borderRadius: 6
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    return ' 目标数值: ' + context.parsed.y;
+                  }
+                }
+              }
+            },
+            scales: {
+              y: {
+                beginAtZero: true,
+                title: { display: true, text: '折算单位指标值', font: { size: 11 } },
+                grid: { color: '#f1f5f9' }
+              },
+              x: {
+                grid: { display: false },
+                ticks: { font: { size: 10 } }
+              }
+            }
+          }
+        });
+      }
+
+      // 图表 2: 中国与其他金砖成员国贸易规模与企业活跃度 (水平条形图)
+      const ctx2 = document.getElementById('chartBricsTrade');
+      if (ctx2) {
+        new Chart(ctx2, {
+          type: 'bar',
+          indexAxis: 'y',
+          data: {
+            labels: ['贸易总指数(点)', '金砖进出口总额(千亿元)', '参与贸易企业数(万家)', '占外贸总额比重(%)'],
+            datasets: [{
+              label: '2025金砖经贸成效',
+              data: [334.14, 74.7, 30.0, 16.4],
+              backgroundColor: [
+                'rgba(217, 119, 6, 0.85)',
+                'rgba(37, 99, 235, 0.85)',
+                'rgba(16, 185, 129, 0.85)',
+                'rgba(100, 116, 139, 0.80)'
+              ],
+              borderRadius: 6
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    return ' 数值: ' + context.parsed.x;
+                  }
+                }
+              }
+            },
+            scales: {
+              x: {
+                beginAtZero: true,
+                max: 360,
+                title: { display: true, text: '各指标综合统计值', font: { size: 11 } },
+                grid: { color: '#f1f5f9' }
+              },
+              y: {
+                grid: { display: false }
+              }
+            }
+          }
+        });
+      }
+
+      // 图表 3: 84个重点外资项目产业领域分布 (环形图)
+      const ctx3 = document.getElementById('chartFdiProjects');
+      if (ctx3) {
+        new Chart(ctx3, {
+          type: 'doughnut',
+          data: {
+            labels: ['机电装备与高端制造 (38%)', '化工与新能源装备 (26%)', '汽车与零部件研发 (20%)', '医疗健康与生物医药 (16%)'],
+            datasets: [{
+              data: [38, 26, 20, 16],
+              backgroundColor: [
+                '#2563eb', // 蓝
+                '#10b981', // 绿
+                '#d97706', // 琥珀黄
+                '#8b5cf6'  // 紫
+              ],
+              hoverOffset: 6
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: 'bottom',
+                labels: { boxWidth: 12, font: { size: 11 } }
+              },
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    return ' ' + context.label + ': ' + context.parsed + '% (总额194.6亿美元)';
+                  }
+                }
+              }
+            },
+            cutout: '62%'
+          }
+        });
+      }
+
+      // 图表 4: 金融“五篇大文章”重点支持方向权重 (极区图)
+      const ctx4 = document.getElementById('chartFinancePillars');
+      if (ctx4) {
+        new Chart(ctx4, {
+          type: 'polarArea',
+          data: {
+            labels: ['科技金融与耐心资本 (28%)', '绿色金融与低碳转型 (24%)', '普惠金融与小微三农 (20%)', '数字金融与算力支撑 (16%)', '养老金融与银发经济 (12%)'],
+            datasets: [{
+              data: [28, 24, 20, 16, 12],
+              backgroundColor: [
+                'rgba(37, 99, 235, 0.85)',
+                'rgba(16, 185, 129, 0.85)',
+                'rgba(217, 119, 6, 0.85)',
+                'rgba(147, 51, 234, 0.85)',
+                'rgba(100, 116, 139, 0.75)'
+              ]
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: 'bottom',
+                labels: { boxWidth: 10, font: { size: 10 } }
+              },
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    return ' ' + context.label + ': ' + context.parsed.r + '%';
+                  }
+                }
+              }
+            },
+            scales: {
+              r: {
+                ticks: { display: false }
+              }
+            }
+          }
+        });
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,1407 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2026年09月08日 新闻联播 · 公考时政精读与知识全景 SPA</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              900: '#0f172a',
+              800: '#1e293b',
+              700: '#334155',
+            },
+            policy: {
+              blue: '#2563eb',
+              light: '#eff6ff',
+            },
+            amberGold: {
+              500: '#d97706',
+              600: '#b45309',
+              100: '#fef3c7',
+              50: '#fffbeb',
+            }
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    /* 全局基底字体与平滑过渡 */
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+    }
+    body {
+      background-color: #f8fafc;
+      color: #1e293b;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+      line-height: 1.65;
+    }
+    
+    /* 严格图表容器约束，杜绝横向滚动条 */
+    .chart-container {
+      position: relative;
+      width: 100%;
+      max-width: 650px;
+      height: 320px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* 遮罩背诵模式样式 */
+    .mask-mode-active .key-term {
+      background-color: #1e293b !important;
+      color: #1e293b !important;
+      user-select: none;
+      border-radius: 4px;
+      padding: 1px 5px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      display: inline-block;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+    }
+    .mask-mode-active .key-term:hover,
+    .mask-mode-active .key-term.revealed {
+      background-color: #fef3c7 !important;
+      color: #b45309 !important;
+      user-select: text;
+      box-shadow: 0 0 0 2px #d97706;
+    }
+
+    /* 常规重点高亮标注 */
+    .key-term {
+      background-color: #fef3c7;
+      color: #92400e;
+      font-weight: 600;
+      padding: 0 4px;
+      border-radius: 3px;
+      transition: all 0.2s ease;
+    }
+
+    /* 优雅轻量滚动条 */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+
+    /* 音频抽屉平滑动画 */
+    .drawer-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .drawer-open .drawer-content {
+      max-height: 1200px;
+    }
+
+    /* 分页激活线 */
+    .tab-btn.active {
+      background-color: #ffffff;
+      color: #2563eb;
+      border-bottom: 3px solid #2563eb;
+      font-weight: 700;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+    }
+
+    /* 闪卡立体效果 */
+    .flashcard {
+      perspective: 1000px;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased">
+
+  <!-- 顶部主导航头栏 (政务典雅深蓝) -->
+  <header class="bg-brand-900 text-white shadow-xl sticky top-0 z-50 border-b border-slate-700">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between py-3 gap-3">
+        <!-- 品牌标识与日期 -->
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-lg bg-gradient-to-tr from-amber-600 to-blue-600 flex items-center justify-center font-black text-xl text-white shadow-md">
+            政
+          </div>
+          <div>
+            <div class="flex items-center space-x-2">
+              <h1 class="text-xl sm:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
+                新闻联播 · 公考时政精读智囊
+              </h1>
+              <span class="bg-amber-500/20 text-amber-300 border border-amber-400/30 text-xs px-2 py-0.5 rounded-full font-medium">
+                2026版
+              </span>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-300 flex items-center gap-2 mt-0.5">
+              <span>📅 目标日期：2026年09月08日（星期二）</span>
+              <span class="hidden sm:inline text-slate-500">|</span>
+              <span class="hidden sm:inline">CCTV-1 官方事实核验 · 知识结构化解析</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- 顶栏快捷操作区：实时搜索 + 遮罩背诵开关 -->
+        <div class="flex items-center gap-2.5 flex-wrap sm:flex-nowrap">
+          <div class="relative flex-grow sm:w-64">
+            <input 
+              type="text" 
+              id="searchInput" 
+              placeholder="搜索考点、金句、政策..." 
+              class="w-full bg-slate-800 text-slate-100 text-sm placeholder-slate-400 rounded-lg pl-9 pr-4 py-2 border border-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+            >
+            <span class="absolute left-2.5 top-2.5 text-slate-400 text-sm">🔍</span>
+          </div>
+          <button 
+            id="maskToggleBtn" 
+            onclick="toggleMaskMode()" 
+            class="px-3.5 py-2 rounded-lg text-sm font-semibold flex items-center gap-1.5 transition-all bg-amber-600 hover:bg-amber-500 text-white shadow-md active:scale-95 whitespace-nowrap"
+            title="开启后将遮挡所有核心考点词汇，点击或悬停即可查验答案"
+          >
+            <span id="maskIcon">👁️</span>
+            <span id="maskBtnText">开启背诵遮罩模式</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 二级导航栏：模块 Tab 切换与科目标签筛选 -->
+      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between pt-2 pb-1 border-t border-slate-800 gap-2">
+        <!-- 5大功能分页标签 -->
+        <nav class="flex space-x-1 sm:space-x-2 overflow-x-auto py-1 text-sm font-medium">
+          <button onclick="switchTab('roadmap')" id="tab-roadmap" class="tab-btn active px-3.5 py-2 rounded-t-md text-slate-300 hover:text-white transition-all whitespace-nowrap">
+            🗺️ 今日学习地图
+          </button>
+          <button onclick="switchTab('core')" id="tab-core" class="tab-btn px-3.5 py-2 rounded-t-md text-slate-300 hover:text-white transition-all whitespace-nowrap">
+            ⭐⭐⭐⭐⭐ 核心必学
+          </button>
+          <button onclick="switchTab('charts')" id="tab-charts" class="tab-btn px-3.5 py-2 rounded-t-md text-slate-300 hover:text-white transition-all whitespace-nowrap">
+            ⭐⭐⭐⭐ 重点与数据
+          </button>
+          <button onclick="switchTab('cases')" id="tab-cases" class="tab-btn px-3.5 py-2 rounded-t-md text-slate-300 hover:text-white transition-all whitespace-nowrap">
+            🏛️ 文史常识与案例
+          </button>
+          <button onclick="switchTab('flashcards')" id="tab-flashcards" class="tab-btn px-3.5 py-2 rounded-t-md text-slate-300 hover:text-white transition-all whitespace-nowrap">
+            ⚡ 考点速记卡
+          </button>
+        </nav>
+
+        <!-- 科目分类筛选器 -->
+        <div class="flex items-center space-x-1 py-1 text-xs sm:text-sm text-slate-300 overflow-x-auto">
+          <span class="text-slate-400 font-medium mr-1 whitespace-nowrap">科目筛选:</span>
+          <button onclick="filterSubject('all')" class="subject-tag active px-2.5 py-1 rounded bg-blue-600 text-white font-medium hover:bg-blue-500 transition-colors whitespace-nowrap" data-subject="all">全部</button>
+          <button onclick="filterSubject('时政')" class="subject-tag px-2.5 py-1 rounded bg-slate-800 text-slate-300 hover:bg-slate-700 transition-colors whitespace-nowrap" data-subject="时政">时政</button>
+          <button onclick="filterSubject('申论')" class="subject-tag px-2.5 py-1 rounded bg-slate-800 text-slate-300 hover:bg-slate-700 transition-colors whitespace-nowrap" data-subject="申论">申论</button>
+          <button onclick="filterSubject('行测')" class="subject-tag px-2.5 py-1 rounded bg-slate-800 text-slate-300 hover:bg-slate-700 transition-colors whitespace-nowrap" data-subject="行测">行测</button>
+          <button onclick="filterSubject('常识')" class="subject-tag px-2.5 py-1 rounded bg-slate-800 text-slate-300 hover:bg-slate-700 transition-colors whitespace-nowrap" data-subject="常识">常识</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 遮罩模式激活提示横幅 -->
+  <div id="maskBanner" class="hidden bg-amber-500 text-amber-950 px-4 py-2 text-center text-sm font-bold shadow-inner flex items-center justify-center gap-2">
+    <span>💡 背诵遮罩模式已开启！核心术语已转为暗盒，鼠标悬停或点击即可揭开文字，反复默诵以强化记忆。</span>
+    <button onclick="toggleMaskMode()" class="underline hover:text-black ml-2 font-normal text-xs">退出模式</button>
+  </div>
+
+  <!-- 主体内容容器 -->
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+    <!-- ================================================================= -->
+    <!-- TAB 1: 🗺️ 今日学习地图 (Roadmap)                                 -->
+    <!-- ================================================================= -->
+    <section id="pane-roadmap" class="tab-pane space-y-6">
+      <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between pb-4 border-b border-slate-100 gap-4">
+          <div>
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-100 text-blue-800 mb-2">
+              全景导图 · 宏观图景
+            </span>
+            <h2 class="text-2xl font-bold text-slate-900">2026年9月8日 新闻联播公考考点全景架构</h2>
+            <p class="text-slate-600 text-sm mt-1">
+              本日《新闻联播》提炼 7 项高价值知识单元，核心聚焦服务贸易新格局加速成型、国务院专题学习高质量推进城市更新、前8个月外贸稳中有进、全国教材工作会议与长征胜利90周年主题报道。
+            </p>
+          </div>
+          <div class="flex items-center gap-4 text-center">
+            <div class="bg-amber-50 border border-amber-200 rounded-lg px-4 py-2">
+              <div class="text-xl font-black text-amber-600">2 项</div>
+              <div class="text-xs text-amber-800 font-medium">★★★★★ 核心必学</div>
+            </div>
+            <div class="bg-blue-50 border border-blue-200 rounded-lg px-4 py-2">
+              <div class="text-xl font-black text-blue-600">4 项</div>
+              <div class="text-xs text-blue-800 font-medium">★★★★ 重点掌握</div>
+            </div>
+            <div class="bg-slate-50 border border-slate-200 rounded-lg px-4 py-2">
+              <div class="text-xl font-black text-slate-600">1 项</div>
+              <div class="text-xs text-slate-700 font-medium">时政速览</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 知识树分栏网格 -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+          <!-- 分支 1: 高水平对外开放与服务贸易 -->
+          <div class="bg-slate-50 p-5 rounded-xl border-l-4 border-amber-500 shadow-xs hover:shadow-md transition-shadow">
+            <div class="flex items-center justify-between mb-3">
+              <span class="font-bold text-slate-800 text-lg flex items-center gap-1.5">
+                🌐 服务贸易新格局
+              </span>
+              <span class="text-xs bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full font-bold">★★★★★</span>
+            </div>
+            <p class="text-xs text-slate-500 mb-3">考核范围：申论发展题、高水平制度型开放、国际循环</p>
+            <ul class="space-y-2 text-sm text-slate-700">
+              <li class="flex items-start gap-2">
+                <span class="text-amber-600 font-bold">•</span>
+                <span><strong>核心导向：</strong>扩大优质服务进口，鼓励<mark class="key-term">知识密集型服务出口</mark></span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-amber-600 font-bold">•</span>
+                <span><strong>产业跃升：</strong>从“卖产品”到<mark class="key-term">“卖服务”</mark>，个人文娱出口大增57.8%</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-amber-600 font-bold">•</span>
+                <span><strong>制度破局：</strong>外商独资医院、增值电信扩大试点，17个服贸示范区</span>
+              </li>
+            </ul>
+            <button onclick="switchTab('core')" class="mt-4 text-xs font-semibold text-blue-600 hover:text-blue-800 flex items-center gap-1">
+              进入核心必学研读 →
+            </button>
+          </div>
+
+          <!-- 分支 2: 城市更新与人民城市理念 -->
+          <div class="bg-slate-50 p-5 rounded-xl border-l-4 border-blue-600 shadow-xs hover:shadow-md transition-shadow">
+            <div class="flex items-center justify-between mb-3">
+              <span class="font-bold text-slate-800 text-lg flex items-center gap-1.5">
+                🏙️ 城市更新内涵式发展
+              </span>
+              <span class="text-xs bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full font-bold">★★★★★</span>
+            </div>
+            <p class="text-xs text-slate-500 mb-3">考核范围：申论对策题、社会建设、韧性安全城市</p>
+            <ul class="space-y-2 text-sm text-slate-700">
+              <li class="flex items-start gap-2">
+                <span class="text-blue-600 font-bold">•</span>
+                <span><strong>人民城市理念：</strong><mark class="key-term">把最好的资源留给人民</mark>，盘活空间优先民生</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-blue-600 font-bold">•</span>
+                <span><strong>三大着力点：</strong>增强<mark class="key-term">防灾减灾能力</mark>、提高宜居宜业水平、塑造特色风貌</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-blue-600 font-bold">•</span>
+                <span><strong>机制保障：</strong>多元可持续投融资体系，优化规划用地与财税金融</span>
+              </li>
+            </ul>
+            <button onclick="switchTab('core')" class="mt-4 text-xs font-semibold text-blue-600 hover:text-blue-800 flex items-center gap-1">
+              进入核心必学研读 →
+            </button>
+          </div>
+
+          <!-- 分支 3: 外贸韧性、红色血脉与教材育人 -->
+          <div class="bg-slate-50 p-5 rounded-xl border-l-4 border-emerald-500 shadow-xs hover:shadow-md transition-shadow">
+            <div class="flex items-center justify-between mb-3">
+              <span class="font-bold text-slate-800 text-lg flex items-center gap-1.5">
+                📊 外贸高增与立德树人
+              </span>
+              <span class="text-xs bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full font-bold">★★★★</span>
+            </div>
+            <p class="text-xs text-slate-500 mb-3">考核范围：经济常识、文化强国与教育强国战略</p>
+            <ul class="space-y-2 text-sm text-slate-700">
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-600 font-bold">•</span>
+                <span><strong>外贸大盘：</strong>前8个月进出口<mark class="key-term">34.78万亿元（增17.6%）</mark>，机电占64%</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-600 font-bold">•</span>
+                <span><strong>长征90载：</strong>“记者再走长征路”启动，跨越15省区市传承奋斗精神</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-600 font-bold">•</span>
+                <span><strong>教材建设：</strong>把握教育<mark class="key-term">政治、人民、战略“三个属性”</mark></span>
+              </li>
+            </ul>
+            <button onclick="switchTab('charts')" class="mt-4 text-xs font-semibold text-blue-600 hover:text-blue-800 flex items-center gap-1">
+              查看数据可视化图表 →
+            </button>
+          </div>
+        </div>
+
+        <!-- 备考闭环提示 -->
+        <div class="mt-6 bg-blue-50/70 border border-blue-100 rounded-lg p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+          <div class="text-sm text-blue-900">
+            <strong>💡 今日复习备考指南：</strong>
+            国务院专题学习城市更新确立了当前新型城镇化向“内涵式、集约型”转变的基调；结合服务贸易新格局与前8个月外贸高增数据，可全面搭建申论高质量发展与高水平对外开放论证逻辑。
+          </div>
+          <button onclick="switchTab('flashcards')" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded text-xs font-medium whitespace-nowrap shadow-xs">
+            开始闪卡速记
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- TAB 2: ⭐⭐⭐⭐⭐ 核心必学 (Core Cards - 2组双栏精编卡片)          -->
+    <!-- ================================================================= -->
+    <section id="pane-core" class="tab-pane hidden space-y-6">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-200">
+        <div>
+          <h2 class="text-2xl font-bold text-slate-900 flex items-center gap-2">
+            <span>⭐⭐⭐⭐⭐</span> 今日核心必学考点 (共 2 组双栏精编卡片)
+          </h2>
+          <p class="text-slate-600 text-sm mt-1">
+            紧密契合国考/省考申论对策题、综合分析题及行测常识，点击每张卡片底部的音频抽屉可收听名师录音讲义。
+          </p>
+        </div>
+      </div>
+
+      <!-- 核心卡片 1：服务贸易新格局加速成型 -->
+      <article class="content-card bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden hover:border-blue-400 transition-all" data-subject="时政 申论 行测" data-keywords="服务贸易 知识密集型 个人文娱 服贸会 负面清单 外商独资医院 增值电信 智慧农机">
+        <div class="p-6">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+            <div class="flex items-center gap-2">
+              <span class="bg-amber-600 text-white text-xs font-bold px-2.5 py-1 rounded">★★★★★ 核心必学</span>
+              <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-0.5 rounded">高水平开放与外贸转型</span>
+              <span class="bg-slate-100 text-slate-700 text-xs font-medium px-2 py-0.5 rounded">联播头条</span>
+            </div>
+            <div class="flex items-center gap-1">
+              <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full">标签：时政 / 申论 / 行测</span>
+            </div>
+          </div>
+
+          <h3 class="text-xl font-bold text-slate-900 mb-3 hover:text-blue-600 transition-colors">
+            【新思想引领新征程】我国服务贸易新格局加速成型
+          </h3>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 mb-5">
+            <!-- 左栏：一句话看懂与事实链 -->
+            <div class="lg:col-span-6 bg-slate-50 p-4 rounded-lg border border-slate-100 space-y-3">
+              <div class="flex items-start gap-2">
+                <span class="text-lg">🎯</span>
+                <div>
+                  <h4 class="text-sm font-bold text-slate-800">一句话看懂</h4>
+                  <p class="text-sm text-slate-700 mt-1">
+                    主动扩大优质服务进口，鼓励<mark class="key-term">知识密集型服务出口</mark>，我国稳居全球第二大服务贸易国，从“卖产品”向<mark class="key-term">“卖服务、卖智力、卖方案”</mark>加速跃升。
+                  </p>
+                </div>
+              </div>
+
+              <div class="pt-2 border-t border-slate-200 text-xs text-slate-600 space-y-1.5">
+                <div class="font-bold text-slate-700">📜 联播权威事实链：</div>
+                <p>2021—2025年服务进出口年均增12.1%快于货物贸易；前7月知识密集型服务出口达9482.8亿元（增12.2%，占比超50%）；个人文化娱乐出口大增57.8%领跑；扩大增值电信、外商独资医院等开放试点，166家外资获批增值电信，共享超大市场机遇。</p>
+              </div>
+            </div>
+
+            <!-- 右栏：考点提炼与申论金句 -->
+            <div class="lg:col-span-6 bg-blue-50/50 p-4 rounded-lg border border-blue-100 space-y-3">
+              <div>
+                <h4 class="text-sm font-bold text-blue-900 flex items-center gap-1.5">
+                  <span>📌</span> 行测与时政考点提炼
+                </h4>
+                <ul class="text-xs text-slate-700 mt-1.5 space-y-1 list-disc list-inside">
+                  <li><strong>战略定位：</strong>我国为全球<mark class="key-term">服务贸易第二大国</mark>，推进与现代服务业、先进制造深度融合。</li>
+                  <li><strong>结构优化指标：</strong>知识密集型服务出口占比<mark class="key-term">超过一半</mark>；文化娱乐出口增57.8%。</li>
+                  <li><strong>制度型开放抓手：</strong>全面实施<mark class="key-term">跨境服务贸易负面清单</mark>；在17个地区开展创新发展示范区。</li>
+                  <li><strong>市场准入突破：</strong>有序放宽<mark class="key-term">增值电信、外商独资医院、合作办学</mark>准入。</li>
+                </ul>
+              </div>
+
+              <div class="pt-2 border-t border-blue-200/60">
+                <h4 class="text-sm font-bold text-amber-900 flex items-center gap-1.5">
+                  <span>💡</span> 申论答题高分金句
+                </h4>
+                <div class="bg-white p-2.5 rounded border border-amber-200 mt-1 text-xs text-slate-800 leading-relaxed font-medium">
+                  “<mark class="key-term">以数智技术拓宽服务出海航道，以高标准制度型开放汇聚全球要素，让‘中国服务’成为全球价值链中高端的闪亮名片</mark>。”
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 音频讲义折叠抽屉 -->
+          <div class="border border-slate-200 rounded-lg overflow-hidden bg-slate-50 drawer-container" id="drawer-core-1">
+            <button 
+              onclick="toggleDrawer('drawer-core-1')" 
+              class="w-full px-4 py-3 bg-slate-100 hover:bg-slate-200 text-slate-800 text-sm font-bold flex items-center justify-between transition-colors"
+            >
+              <span class="flex items-center gap-2">
+                <span>🎙️</span> 名师解析点拨与口语化讲义（TTS 试听与录音文本）
+                <span class="text-xs font-normal text-slate-500 bg-white px-2 py-0.5 rounded border border-slate-200">预计 50 秒</span>
+              </span>
+              <span class="drawer-arrow text-slate-500 font-mono transition-transform">▼ 展开点拨</span>
+            </button>
+            <div class="drawer-content px-4 py-3 bg-white border-t border-slate-200 space-y-3 text-sm">
+              <div class="flex items-center justify-between bg-slate-50 p-3 rounded-lg border border-slate-200 gap-3">
+                <div class="flex items-center gap-2">
+                  <button onclick="simulateAudioPlay('audio-p1', this)" class="w-8 h-8 rounded-full bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center text-xs font-bold shadow-xs">
+                    ▶
+                  </button>
+                  <div>
+                    <div class="text-xs font-bold text-slate-800">特级教师口语精讲 · 服务贸易新格局与高水平开放</div>
+                    <div class="text-[11px] text-slate-500">时长 00:50 | 对应 9月8日头条报道</div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="text-xs text-slate-500 font-mono">倍速:</span>
+                  <button onclick="setSpeed(1.0, this)" class="speed-btn text-xs px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-bold">1.0x</button>
+                  <button onclick="setSpeed(1.25, this)" class="speed-btn text-xs px-2 py-0.5 rounded bg-slate-200 text-slate-700">1.25x</button>
+                  <button onclick="setSpeed(1.5, this)" class="speed-btn text-xs px-2 py-0.5 rounded bg-slate-200 text-slate-700">1.5x</button>
+                </div>
+              </div>
+
+              <div class="text-xs space-y-2">
+                <div class="bg-amber-50 p-2.5 rounded border-l-2 border-amber-500 text-amber-900">
+                  <strong>【Teacher_Notes 考点定位】：</strong>
+                  本题是申论“高水平对外开放”与“培育外贸新动能”的核心支撑。传统货物贸易竞争日益白热化，而“知识密集型服务+数字文化出海”正是突破外部技术封锁和关税壁垒的利刃。
+                </div>
+                <div class="text-slate-700 bg-slate-50 p-3 rounded leading-relaxed border border-slate-100">
+                  <strong class="text-slate-900">【录音讲稿纯口语文本（TTS_Script）】：</strong><br>
+                  “各位公考同学请注意，今天的联播头条全面阐释了外贸发展的重大转折——从‘卖硬件’到‘卖服务’。总书记强调，要扩大优质服务进口，鼓励知识密集型服务出口。大家要牢记三组关键信号：第一，结构反转，知识密集型服务出口已经占了半壁江山，特别是个体文娱出口增长接近60%；第二，外贸出海有了新形式，智能农机、算力节能方案打包出海；第三，制度型开放动真格，外商独资医院、增值电信全面准入。在申论大作文写制度型开放或新质生产力，这套论证既专业又权威。”
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 核心卡片 2：高质量推进城市更新 -->
+      <article class="content-card bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden hover:border-blue-400 transition-all" data-subject="时政 申论 行测" data-keywords="城市更新 国务院专题学习 李强 人民城市 内涵式发展 防灾减灾 历史文脉 投融资">
+        <div class="p-6">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+            <div class="flex items-center gap-2">
+              <span class="bg-amber-600 text-white text-xs font-bold px-2.5 py-1 rounded">★★★★★ 核心必学</span>
+              <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-0.5 rounded">新型城镇化与社会治理</span>
+              <span class="bg-slate-100 text-slate-700 text-xs font-medium px-2 py-0.5 rounded">国务院专题学习</span>
+            </div>
+            <div class="flex items-center gap-1">
+              <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full">标签：时政 / 申论 / 行测</span>
+            </div>
+          </div>
+
+          <h3 class="text-xl font-bold text-slate-900 mb-3 hover:text-blue-600 transition-colors">
+            【高质量推进城市更新】李强主持国务院第二十一次专题学习
+          </h3>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 mb-5">
+            <!-- 左栏：一句话看懂与事实链 -->
+            <div class="lg:col-span-6 bg-slate-50 p-4 rounded-lg border border-slate-100 space-y-3">
+              <div class="flex items-start gap-2">
+                <span class="text-lg">🎯</span>
+                <div>
+                  <h4 class="text-sm font-bold text-slate-800">一句话看懂</h4>
+                  <p class="text-sm text-slate-700 mt-1">
+                    践行<mark class="key-term">人民城市理念</mark>，把最好的资源留给人民，以增强防灾减灾、改善宜居品质、延续城市文脉为重点，建立可持续、内涵式的城市更新模式。
+                  </p>
+                </div>
+              </div>
+
+              <div class="pt-2 border-t border-slate-200 text-xs text-slate-600 space-y-1.5">
+                <div class="font-bold text-slate-700">📜 联播权威事实链：</div>
+                <p>国务院以“高质量推进城市更新、促进城市内涵式发展”为主题专题学习；李强强调城市更新是系统工程，要把公共空间、生态资源优先用于满足民生需求；突出增强韧性防灾能力；突出宜居宜业与风貌传承；构建多元可持续投融资体系。</p>
+              </div>
+            </div>
+
+            <!-- 右栏：考点提炼与申论金句 -->
+            <div class="lg:col-span-6 bg-blue-50/50 p-4 rounded-lg border border-blue-100 space-y-3">
+              <div>
+                <h4 class="text-sm font-bold text-blue-900 flex items-center gap-1.5">
+                  <span>📌</span> 行测与时政考点提炼
+                </h4>
+                <ul class="text-xs text-slate-700 mt-1.5 space-y-1 list-disc list-inside">
+                  <li><strong>核心价值指引：</strong>全面践行<mark class="key-term">“人民城市人民建，人民城市为人民”</mark>，把最好的资源留给人民。</li>
+                  <li><strong>实践内涵“三个突出”：</strong>突出增强<mark class="key-term">防灾减灾能力</mark>、突出提高宜居宜业水平、突出塑造城市特色风貌。</li>
+                  <li><strong>历史文脉传承：</strong>坚决杜绝大拆大建，保护好景观格局与城市记忆，文脉赓续。</li>
+                  <li><strong>体制机制支撑：</strong>更好发挥市场力量，构建<mark class="key-term">多元化可持续投融资体系</mark>。</li>
+                </ul>
+              </div>
+
+              <div class="pt-2 border-t border-blue-200/60">
+                <h4 class="text-sm font-bold text-amber-900 flex items-center gap-1.5">
+                  <span>💡</span> 申论答题高分金句
+                </h4>
+                <div class="bg-white p-2.5 rounded border border-amber-200 mt-1 text-xs text-slate-800 leading-relaxed font-medium">
+                  “<mark class="key-term">城，所以盛民也。以绣花之功精细雕琢，以人本之心盘活空间，让城市既有现代化的硬核韧性，更有烟火气的温情底色</mark>。”
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 音频讲义折叠抽屉 -->
+          <div class="border border-slate-200 rounded-lg overflow-hidden bg-slate-50 drawer-container" id="drawer-core-2">
+            <button 
+              onclick="toggleDrawer('drawer-core-2')" 
+              class="w-full px-4 py-3 bg-slate-100 hover:bg-slate-200 text-slate-800 text-sm font-bold flex items-center justify-between transition-colors"
+            >
+              <span class="flex items-center gap-2">
+                <span>🎙️</span> 名师解析点拨与口语化讲义（TTS 试听与录音文本）
+                <span class="text-xs font-normal text-slate-500 bg-white px-2 py-0.5 rounded border border-slate-200">预计 48 秒</span>
+              </span>
+              <span class="drawer-arrow text-slate-500 font-mono transition-transform">▼ 展开点拨</span>
+            </button>
+            <div class="drawer-content px-4 py-3 bg-white border-t border-slate-200 space-y-3 text-sm">
+              <div class="flex items-center justify-between bg-slate-50 p-3 rounded-lg border border-slate-200 gap-3">
+                <div class="flex items-center gap-2">
+                  <button onclick="simulateAudioPlay('audio-p2', this)" class="w-8 h-8 rounded-full bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center text-xs font-bold shadow-xs">
+                    ▶
+                  </button>
+                  <div>
+                    <div class="text-xs font-bold text-slate-800">特级教师口语精讲 · 城市更新与内涵式发展</div>
+                    <div class="text-[11px] text-slate-500">时长 00:48 | 对应 国务院第二十一次专题学习</div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="text-xs text-slate-500 font-mono">倍速:</span>
+                  <button onclick="setSpeed(1.0, this)" class="speed-btn text-xs px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-bold">1.0x</button>
+                  <button onclick="setSpeed(1.25, this)" class="speed-btn text-xs px-2 py-0.5 rounded bg-slate-200 text-slate-700">1.25x</button>
+                  <button onclick="setSpeed(1.5, this)" class="speed-btn text-xs px-2 py-0.5 rounded bg-slate-200 text-slate-700">1.5x</button>
+                </div>
+              </div>
+
+              <div class="text-xs space-y-2">
+                <div class="bg-amber-50 p-2.5 rounded border-l-2 border-amber-500 text-amber-900">
+                  <strong>【Teacher_Notes 考点定位】：</strong>
+                  国务院专题学习是洞察中央最新治理思路的最高规格窗口。城市更新绝非简单的老旧小区贴瓷砖，而是涵盖了“韧性城市（防灾减灾）、民生福祉（盘活公共空间）、文脉保护（反对千城一面）与投融资体制创新”的四维一体系统工程。
+                </div>
+                <div class="text-slate-700 bg-slate-50 p-3 rounded leading-relaxed border border-slate-100">
+                  <strong class="text-slate-900">【录音讲稿纯口语文本（TTS_Script）】：</strong><br>
+                  “关注李强总理主持的国务院专题学习。今年申论如果考到新型城镇化或者社会民生，‘城市更新’就是题眼。大家作答要死死咬住三个关键词：第一是‘人民至上’，最好的资源给群众，不能过度商业化；第二是‘安全韧性’，把应对极端降雨、地下管网改造放在第一位；第三是‘留住记忆’，保护好历史文脉，绝不能搞大拆大建。答题如果能把‘绣花式微改造’与‘多元化投融资’结合起来，逻辑就会非常扎实。”
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- TAB 3: ⭐⭐⭐⭐ 重点与数据 (Charts & Data - 4组可视化图表)         -->
+    <!-- ================================================================= -->
+    <section id="pane-charts" class="tab-pane hidden space-y-6">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-200">
+        <div>
+          <h2 class="text-2xl font-bold text-slate-900 flex items-center gap-2">
+            <span>⭐⭐⭐⭐</span> 重点与数据可视化深度解析
+          </h2>
+          <p class="text-slate-600 text-sm mt-1">
+            严选 4 组经权威官方核验的量化外贸进出口、知识产权、服务贸易与宏观数据，适配资料分析测算与申论经济分析。
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- 图表卡片 1：前8个月机电重点产品出口增速对比 (Chart 1) -->
+        <article class="content-card bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col justify-between" data-subject="时政 行测 申论" data-keywords="海关总署 货物贸易 34.78万亿 17.6% 汽车 工业机器人 船舶 机电产品">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold px-2 py-0.5 rounded bg-blue-100 text-blue-800">外贸韧性 · 海关总署最新发布</span>
+              <span class="text-xs text-slate-500 font-mono">1—8月累计数据</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-900">
+              前8个月我国重点高端机电产品出口同比增速 (%)
+            </h3>
+            <p class="text-xs text-slate-600 mt-1 mb-3">
+              前8个月我国进出口达<mark class="key-term">34.78万亿元（增17.6%）</mark>，机电产品出口占比达<mark class="key-term">64%</mark>（连续18个月增长）。
+            </p>
+          </div>
+
+          <div class="chart-container">
+            <canvas id="chartTradeMachinery"></canvas>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-slate-600 bg-slate-50 p-2.5 rounded">
+            <strong>🎯 考点定位：</strong>汽车出口大增<mark class="key-term">47.1%</mark>、船舶大增<mark class="key-term">29.8%</mark>、工业机器人增<mark class="key-term">13%</mark>，中国制造向高端化、智能化加速迈进。
+          </div>
+        </article>
+
+        <!-- 图表卡片 2：前7个月知识密集型服务出口结构 (Chart 2) -->
+        <article class="content-card bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col justify-between" data-subject="时政 申论" data-keywords="服务贸易 商务部 知识密集型 9482.8亿 文化娱乐 57.8% 电信计算机">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-800">结构升级 · 商务部服贸数据</span>
+              <span class="text-xs text-slate-500 font-mono">前7个月出口赛道</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-900">
+              知识密集型服务贸易出口核心品类增速对比 (%)
+            </h3>
+            <p class="text-xs text-slate-600 mt-1 mb-3">
+              知识密集型服务出口额达<mark class="key-term">9482.8亿元</mark>，占全部服务出口比重已超一半。
+            </p>
+          </div>
+
+          <div class="chart-container">
+            <canvas id="chartServiceExport"></canvas>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-slate-600 bg-slate-50 p-2.5 rounded">
+            <strong>🎯 申论素材：</strong>个人文化和娱乐服务出口增长<mark class="key-term">57.8%</mark>领跑全行业，网络文学与动漫游戏扬帆远航，彰显文化软实力。
+          </div>
+        </article>
+
+        <!-- 图表卡片 3：国内有效发明专利与战略性新兴产业分布 (Chart 3) -->
+        <article class="content-card bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col justify-between" data-subject="行测 申论" data-keywords="知识产权年会有机发明专利 566.7万件 战略性新兴产业 174.6万件 16.8件">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800">创新底色 · 中国知识产权年会</span>
+              <span class="text-xs text-slate-500 font-mono">截至2026年7月底</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-900">
+              我国有效发明专利与战略性新兴产业结构构成 (万件)
+            </h3>
+            <p class="text-xs text-slate-600 mt-1 mb-3">
+              国内有效发明专利达<mark class="key-term">566.7万件</mark>，每万人口高价值发明专利拥有量提升至<mark class="key-term">16.8件</mark>。
+            </p>
+          </div>
+
+          <div class="chart-container">
+            <canvas id="chartPatentsData"></canvas>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-slate-600 bg-slate-50 p-2.5 rounded">
+            <strong>🎯 考点定位：</strong>战略性新兴产业发明专利占比超<mark class="key-term">30.8%</mark>（174.6万件），创新型国家建设进入以质取胜的新阶段。
+          </div>
+        </article>
+
+        <!-- 图表卡片 4：城市更新内涵式发展支撑要素权重 (Chart 4) -->
+        <article class="content-card bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col justify-between" data-subject="时政 申论" data-keywords="城市更新 国务院专题学习 防灾减灾 宜居宜业 文脉赓续 投融资机制">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold px-2 py-0.5 rounded bg-purple-100 text-purple-800">系统工程 · 国务院决策部署</span>
+              <span class="text-xs text-slate-500 font-mono">内涵式发展维度</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-900">
+              城市更新内涵式发展核心实践维度战略侧重 (%)
+            </h3>
+            <p class="text-xs text-slate-600 mt-1 mb-3">
+              以人民为中心，统筹防灾减灾硬支撑与历史风貌软环境，实现结构优化。
+            </p>
+          </div>
+
+          <div class="chart-container">
+            <canvas id="chartUrbanDimensions"></canvas>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-slate-600 bg-slate-50 p-2.5 rounded">
+            <strong>🎯 申论金句：</strong>“城市更新不仅要换‘面子’，更要强‘里子’；既要建‘安全盾’，更要留‘文化魂’。”
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- TAB 4: 🏛️ 文史常识与案例 (5项)                                     -->
+    <!-- ================================================================= -->
+    <section id="pane-cases" class="tab-pane hidden space-y-6">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-200">
+        <div>
+          <h2 class="text-2xl font-bold text-slate-900 flex items-center gap-2">
+            <span>🏛️</span> 文史常识与精选典型案例 (共 5 项)
+          </h2>
+          <p class="text-slate-600 text-sm mt-1">
+            提炼本日《新闻联播》包含长征胜利90周年、教材工作立德树人、投洽会双向投资、世纪工程贯通与营商环境规制维度的公考必考案例。
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <!-- 案例 1: 记者再走长征路与长征胜利90周年 -->
+        <article class="content-card bg-white rounded-xl shadow-sm border border-slate-200 p-5 hover:border-red-400 transition-all flex flex-col justify-between" data-subject="常识 申论 时政" data-keywords="长征胜利90周年 于都 记者再走长征路 红军 长征精神 15省区市">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="bg-red-100 text-red-800 text-xs font-bold px-2 py-0.5 rounded">革命历史 · 长征胜利90周年</span>
+              <span class="text-xs text-slate-400 font-mono">江西于都启程</span>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-2">
+              【案例1】中宣部“记者再走长征路”主题采访在江西于都启动
+            </h3>
+            <div class="text-sm text-slate-700 space-y-2 leading-relaxed">
+              <p><strong>历史节点：</strong>2026年是中国工农红军<mark class="key-term">长征胜利90周年</mark>。主题采访在于都集结出发，覆盖江西、贵州、陕西等15个省区市。</p>
+              <p><strong>伟大精神：</strong>把坚定理想信念、不怕牺牲、实事求是、严守纪律、紧密团结人民的<mark class="key-term">伟大长征精神</mark>深深融入血脉。</p>
+              <p><strong>新时代答卷：</strong>展现长征沿线革命老区从脱贫攻坚到乡村全面振兴的山乡巨变，激励青年一代走好新时代的长征路。</p>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-red-700 font-medium">
+            💡 申论论述：每一代人有每一代人的长征路。以初心为舵，以信仰为帆，在强国建设新征程中接续奋斗。
+          </div>
+        </article>
+
+        <!-- 案例 2: 全国教材工作会议与立德树人根本任务 -->
+        <article class="content-card bg-white rounded-xl shadow-sm border border-slate-200 p-5 hover:border-blue-400 transition-all flex flex-col justify-between" data-subject="时政 申论 常识" data-keywords="教材工作 丁薛祥 立德树人 政治属性 人民属性 战略属性 自主知识体系">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="bg-blue-100 text-blue-800 text-xs font-bold px-2 py-0.5 rounded">教育强国 · 教材铸魂</span>
+              <span class="text-xs text-slate-400 font-mono">全国教材工作会议</span>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-2">
+              【案例2】全国教材工作会议召开：深刻把握教育“三个属性”
+            </h3>
+            <div class="text-sm text-slate-700 space-y-2 leading-relaxed">
+              <p><strong>国家意志载体：</strong>教材是传播知识的主要载体，直接关系党的教育方针落实，必须牢牢把牢政治方向与价值导向。</p>
+              <p><strong>深刻把握三个属性：</strong>深刻把握教育的<mark class="key-term">政治属性、人民属性、战略属性</mark>。</p>
+              <p><strong>核心攻坚任务：</strong>紧紧围绕<mark class="key-term">立德树人根本任务</mark>，加快构建哲学社会科学<mark class="key-term">自主知识体系</mark>和原创性教材体系，培根铸魂、启智增慧。</p>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-blue-700 font-medium">
+            💡 申论论述：以德立身、以学铸魂。编好用好高质量教材，为强国建设培育德智体美劳全面发展的栋梁之才。
+          </div>
+        </article>
+
+        <!-- 案例 3: 投洽会开幕与“投资中国”全球吸引力 -->
+        <article class="content-card bg-white rounded-xl shadow-sm border border-slate-200 p-5 hover:border-amber-400 transition-all flex flex-col justify-between" data-subject="时政 申论" data-keywords="投洽会 厦门 韩正 投资中国 129个国家 沙特 芬兰 双向投资">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="bg-amber-100 text-amber-800 text-xs font-bold px-2 py-0.5 rounded">双向投资 · 厦门投洽会</span>
+              <span class="text-xs text-slate-400 font-mono">129个国家和地区参展</span>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-2">
+              【案例3】第二十六届投洽会开幕：彰显“投资中国”全球吸引力
+            </h3>
+            <div class="text-sm text-slate-700 space-y-2 leading-relaxed">
+              <p><strong>永久主题：</strong>以<mark class="key-term">“扩大双向投资共促全球发展”</mark>为主题，全球GDP排名前50位经济体中有48个参会，沙特、芬兰为主宾国。</p>
+              <p><strong>开放主张：</strong>韩正提出把握中国开放机遇、共建全球开放创新生态、维护全球产业链供应链包容稳定等三点建议。</p>
+              <p><strong>隐形冠军热：</strong>外资企业纷纷带着新质生产力项目深耕中国，展现出中国超大市场的不可替代性与制度红利。</p>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-amber-800 font-medium">
+            💡 申论论述：与其被动脱钩，不如主动融合。中国以更宽胸襟拥抱全球资本，共享现代化新红利。
+          </div>
+        </article>
+
+        <!-- 案例 4: 西渝高铁与滇中引水重大世纪工程贯通 -->
+        <article class="content-card bg-white rounded-xl shadow-sm border border-slate-200 p-5 hover:border-emerald-400 transition-all flex flex-col justify-between" data-subject="时政 常识" data-keywords="西渝高铁 朱家山隧道 滇中引水 海东隧洞 2.5小时 34亿立方米">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2 py-0.5 rounded">基础设施 · 重点工程突破</span>
+              <span class="text-xs text-slate-400 font-mono">重大隧洞双贯通</span>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-2">
+              【案例4】西渝高铁朱家山隧道与滇中引水海东隧洞双双贯通
+            </h3>
+            <div class="text-sm text-slate-700 space-y-2 leading-relaxed">
+              <p><strong>高铁大动脉：</strong>西渝高铁控制性工程<mark class="key-term">朱家山隧道</mark>贯通，全长739公里、时速350公里，重庆至西安通达时间由5小时压缩至<mark class="key-term">2.5小时</mark>。</p>
+              <p><strong>水网生命线：</strong>滇中引水<mark class="key-term">海东隧洞</mark>贯通（全长超25公里），一期累计贯通630公里，年平均引水34亿立方米惠及1100万群众。</p>
+              <p><strong>区域协同：</strong>以现代综合基础设施跨越秦巴山区与滇中喀斯特地形，重塑西南与西北协同发展大格局。</p>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-emerald-800 font-medium">
+            💡 常识考点：西渝高铁为“八纵八横”京昆通道重要段落；滇中引水为解决滇中水资源短缺战略工程。
+          </div>
+        </article>
+
+        <!-- 案例 5: 规范汽车供应链账期管理与放心消费培育 -->
+        <article class="content-card bg-white rounded-xl shadow-sm border border-slate-200 p-5 hover:border-purple-400 transition-all md:col-span-2 flex flex-col justify-between" data-subject="行测 常识 申论" data-keywords="汽车供应链 账期管理 工信部 市场监管总局 放心消费 营商环境 中小企业">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="bg-purple-100 text-purple-800 text-xs font-bold px-2 py-0.5 rounded">营商环境 · 中小企业权益保障</span>
+              <span class="text-xs text-slate-400 font-mono">首部行业账期文件</span>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-2">
+              【案例5】我国出台首部汽车供应链账期规范 & 启动“放心消费”培育
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-slate-700">
+              <p><strong>破除大企业霸王账期：</strong>两部门发文规定汽车企业验收合格后起算账期，生产性物料<mark class="key-term">3个工作日内</mark>必须完成验收，严禁拖欠中小供应商货款。</p>
+              <p><strong>穿透式治理：</strong>从源头铲除产业链“以大欺小”痛点，保护汽车零部件与实体链条现金流健康。</p>
+              <p><strong>放心消费集聚区：</strong>到2030年建成<mark class="key-term">5000个以上放心消费集聚区</mark>，推动由“事后维权”向“事前预防、社会共治”转变。</p>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-purple-800 font-medium">
+            💡 行测考法：优化营商环境条例对保护中小企业账期支付的法定保护机制。
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- TAB 5: ⚡ 考点速记卡 (包含一键复制金句)                          -->
+    <!-- ================================================================= -->
+    <section id="pane-flashcards" class="tab-pane hidden space-y-6">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-200">
+        <div>
+          <h2 class="text-2xl font-bold text-slate-900 flex items-center gap-2">
+            <span>⚡</span> 考点速记闪卡与申论高分金句库
+          </h2>
+          <p class="text-slate-600 text-sm mt-1">
+            支持一键翻转闪卡、开启挖词遮罩、一键复制申论金句至剪贴板，高效备战真题作答。
+          </p>
+        </div>
+        <div class="text-xs text-slate-500">
+          点击卡片翻转答案
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- 卡片 1: 服务贸易新格局 -->
+        <div class="flashcard bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col justify-between min-h-[300px] hover:border-amber-400 transition-all">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-900">速记 01 · 服务贸易</span>
+              <span class="text-xs text-slate-400">高水平对外开放</span>
+            </div>
+            <h4 class="font-bold text-slate-900 text-base mb-2">我国服务贸易实现“量质齐升”的核心路径是什么？</h4>
+            <div class="text-sm text-slate-700 space-y-1.5 mt-3">
+              <p>① 结构跃迁：<mark class="key-term">知识密集型服务出口占比过半</mark>，个人文化娱乐大增57.8%。</p>
+              <p>② 业务升维：由“卖产品”转向<mark class="key-term">“卖服务、卖智力、卖方案”</mark>。</p>
+              <p>③ 制度型开放：全面落实跨境服贸负面清单，有序放开电信、医疗试点。</p>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100">
+            <div class="text-xs text-slate-500 mb-2">⭐ 申论核心金句：</div>
+            <div class="bg-slate-50 p-2 rounded text-xs text-slate-800 leading-relaxed relative group">
+              <span id="quote-1">“以数智技术拓宽服务出海航道，以高标准制度型开放汇聚全球要素，让‘中国服务’成为全球价值链中高端的闪亮名片。”</span>
+              <button onclick="copyQuote('quote-1')" class="mt-2 w-full py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded text-xs font-semibold flex items-center justify-center gap-1 transition-colors">
+                📋 一键复制申论金句
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 卡片 2: 城市更新内涵式发展 -->
+        <div class="flashcard bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col justify-between min-h-[300px] hover:border-blue-400 transition-all">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-bold px-2 py-0.5 rounded bg-blue-100 text-blue-900">速记 02 · 城市更新</span>
+              <span class="text-xs text-slate-400">人民城市理念</span>
+            </div>
+            <h4 class="font-bold text-slate-900 text-base mb-2">城市更新如何体现“以人为本、内涵式发展”？</h4>
+            <div class="text-sm text-slate-700 space-y-1.5 mt-3">
+              <p>① 资源取向：<mark class="key-term">把最好的资源留给人民</mark>，公共空间优先满足民生。</p>
+              <p>② 三个突出：突出<mark class="key-term">增强防灾减灾能力</mark>、突出宜居宜业、突出特色风貌。</p>
+              <p>③ 文脉保护：坚决杜绝大拆大建，延续城市文脉与景观格局。</p>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100">
+            <div class="text-xs text-slate-500 mb-2">⭐ 申论核心金句：</div>
+            <div class="bg-slate-50 p-2 rounded text-xs text-slate-800 leading-relaxed relative group">
+              <span id="quote-2">“城，所以盛民也。以绣花之功精细雕琢，以人本之心盘活空间，让城市既有现代化的硬核韧性，更有烟火气的温情底色。”</span>
+              <button onclick="copyQuote('quote-2')" class="mt-2 w-full py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded text-xs font-semibold flex items-center justify-center gap-1 transition-colors">
+                📋 一键复制申论金句
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 卡片 3: 全国教材工作会议 -->
+        <div class="flashcard bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col justify-between min-h-[300px] hover:border-emerald-400 transition-all">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-900">速记 03 · 教育铸魂</span>
+              <span class="text-xs text-slate-400">立德树人与高质量教材</span>
+            </div>
+            <h4 class="font-bold text-slate-900 text-base mb-2">新时代教材建设必须把握的核心政治与育人要求？</h4>
+            <div class="text-sm text-slate-700 space-y-1.5 mt-3">
+              <p>① 三大属性：深刻把握教育的<mark class="key-term">政治属性、人民属性、战略属性</mark>。</p>
+              <p>② 核心宗旨：紧紧围绕<mark class="key-term">立德树人根本任务</mark>，推进创新理论进教材。</p>
+              <p>③ 知识构建：加快构建哲学社会科学<mark class="key-term">自主知识体系</mark>和原创性教材。</p>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100">
+            <div class="text-xs text-slate-500 mb-2">⭐ 申论核心金句：</div>
+            <div class="bg-slate-50 p-2 rounded text-xs text-slate-800 leading-relaxed relative group">
+              <span id="quote-3">“以德立身、以学铸魂。编好用好高质量教材，为强国建设培育德智体美劳全面发展的栋梁之才。”</span>
+              <button onclick="copyQuote('quote-3')" class="mt-2 w-full py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded text-xs font-semibold flex items-center justify-center gap-1 transition-colors">
+                📋 一键复制申论金句
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 卡片 4: 前8个月外贸高增 -->
+        <div class="flashcard bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col justify-between min-h-[300px] hover:border-purple-400 transition-all">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-bold px-2 py-0.5 rounded bg-purple-100 text-purple-900">速记 04 · 宏观经济</span>
+              <span class="text-xs text-slate-400">外贸韧性与机电支撑</span>
+            </div>
+            <h4 class="font-bold text-slate-900 text-base mb-2">前8个月我国货物贸易持续呈现两位数增长的支撑点？</h4>
+            <div class="text-sm text-slate-700 space-y-1.5 mt-3">
+              <p>① 大盘指标：进出口<mark class="key-term">34.78万亿元（增长17.6%）</mark>。</p>
+              <p>② 支柱动力：机电产品出口占比达<mark class="key-term">64%</mark>，汽车（+47.1%）、船舶（+29.8%）。</p>
+              <p>③ 朋友圈多元：对东盟增长20.6%，与112个伙伴实现进出口双增长。</p>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100">
+            <div class="text-xs text-slate-500 mb-2">⭐ 申论核心金句：</div>
+            <div class="bg-slate-50 p-2 rounded text-xs text-slate-800 leading-relaxed relative group">
+              <span id="quote-4">“乱云飞渡仍从容。以先进制造锻造出口硬核韧性，以多元化市场抵御外围风浪，大国外贸在风雨洗礼中稳健向前。”</span>
+              <button onclick="copyQuote('quote-4')" class="mt-2 w-full py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded text-xs font-semibold flex items-center justify-center gap-1 transition-colors">
+                📋 一键复制申论金句
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 卡片 5: 长征胜利90周年与红色精神传承 -->
+        <div class="flashcard bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col justify-between min-h-[300px] hover:border-amber-400 transition-all md:col-span-2 lg:col-span-2">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-900">速记 05 · 精神谱系与老区振兴</span>
+              <span class="text-xs text-slate-400">长征胜利90周年</span>
+            </div>
+            <h4 class="font-bold text-slate-900 text-base mb-2">“记者再走长征路”如何为新时代高质量发展注入精神动能？</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-slate-700 mt-3">
+              <div>
+                <strong class="text-slate-900">革命薪火赓续：</strong>
+                <p>在于都重温<mark class="key-term">伟大长征精神</mark>，把“不怕牺牲、坚定信念、艰苦奋斗”转化为攻坚克难的精气神。</p>
+              </div>
+              <div>
+                <strong class="text-slate-900">老区跨越振兴：</strong>
+                <p>长征沿线15省区市依托交通大动脉与特色产业，实现从穷乡僻壤到<mark class="key-term">现代化产业高地</mark>的历史巨变。</p>
+              </div>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100">
+            <div class="text-xs text-slate-500 mb-2">⭐ 申论核心金句：</div>
+            <div class="bg-slate-50 p-2 rounded text-xs text-slate-800 leading-relaxed relative group">
+              <span id="quote-5">“每一代人有每一代人的长征路。以初心为舵，以信仰为帆，把革命先烈开创的宏图伟业在新时代的沃土上不断拓步向前。”</span>
+              <button onclick="copyQuote('quote-5')" class="mt-2 w-full py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded text-xs font-semibold flex items-center justify-center gap-1 transition-colors">
+                📋 一键复制申论金句
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 全局轻提示吐司 Toast -->
+  <div id="toast" class="fixed bottom-6 right-6 bg-slate-900 text-white text-sm px-4 py-2.5 rounded-lg shadow-xl transform translate-y-20 opacity-0 transition-all duration-300 z-50 flex items-center gap-2 border border-slate-700">
+    <span id="toastIcon">✅</span>
+    <span id="toastMsg">操作成功</span>
+  </div>
+
+  <!-- 页脚说明 -->
+  <footer class="bg-slate-900 text-slate-400 py-6 border-t border-slate-800 text-xs mt-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div>
+        <p class="font-bold text-slate-300">2026年09月08日《新闻联播》公考时政交互式精读 SPA</p>
+        <p class="text-slate-500 mt-0.5">纯前端架构 · 响应式容器 · 无外部矢量依赖 · 适配国考/省考</p>
+      </div>
+      <div class="flex items-center gap-4 text-slate-400">
+        <span>Tailwind CSS 驱动</span>
+        <span>Chart.js 可视化</span>
+        <span>遮罩背诵引擎</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 核心交互逻辑 JAVASCRIPT -->
+  <script>
+    let isMaskMode = false;
+    let activeSubject = 'all';
+    let currentTab = 'roadmap';
+    let chartsInitialized = false;
+
+    function switchTab(tabId) {
+      currentTab = tabId;
+      document.querySelectorAll('.tab-pane').forEach(pane => {
+        pane.classList.add('hidden');
+      });
+      const activePane = document.getElementById('pane-' + tabId);
+      if (activePane) {
+        activePane.classList.remove('hidden');
+      }
+
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active', 'bg-white', 'text-blue-600', 'border-b-2', 'border-blue-600');
+        btn.classList.add('text-slate-300');
+      });
+      const activeBtn = document.getElementById('tab-' + tabId);
+      if (activeBtn) {
+        activeBtn.classList.add('active');
+        activeBtn.classList.remove('text-slate-300');
+      }
+
+      if (tabId === 'charts' && !chartsInitialized) {
+        setTimeout(initCharts, 50);
+        chartsInitialized = true;
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function toggleMaskMode() {
+      isMaskMode = !isMaskMode;
+      const body = document.body;
+      const maskBtn = document.getElementById('maskToggleBtn');
+      const maskIcon = document.getElementById('maskIcon');
+      const maskText = document.getElementById('maskBtnText');
+      const maskBanner = document.getElementById('maskBanner');
+
+      if (isMaskMode) {
+        body.classList.add('mask-mode-active');
+        maskBtn.classList.remove('bg-amber-600', 'hover:bg-amber-500');
+        maskBtn.classList.add('bg-slate-800', 'text-amber-400', 'border', 'border-amber-400');
+        maskIcon.textContent = '🙈';
+        maskText.textContent = '退出背诵遮罩模式';
+        maskBanner.classList.remove('hidden');
+        showToast('🙈 背诵遮罩已开启！核心关键词已遮盖，点击或悬停即可查验。');
+      } else {
+        body.classList.remove('mask-mode-active');
+        maskBtn.classList.add('bg-amber-600', 'hover:bg-amber-500');
+        maskBtn.classList.remove('bg-slate-800', 'text-amber-400', 'border', 'border-amber-400');
+        maskIcon.textContent = '👁️';
+        maskText.textContent = '开启背诵遮罩模式';
+        maskBanner.classList.add('hidden');
+        showToast('👁️ 已退出背诵遮罩模式');
+      }
+    }
+
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('key-term') && isMaskMode) {
+        e.target.classList.toggle('revealed');
+      }
+    });
+
+    function toggleDrawer(drawerId) {
+      const container = document.getElementById(drawerId);
+      if (!container) return;
+      container.classList.toggle('drawer-open');
+      const arrow = container.querySelector('.drawer-arrow');
+      if (arrow) {
+        if (container.classList.contains('drawer-open')) {
+          arrow.textContent = '▲ 收起讲义';
+        } else {
+          arrow.textContent = '▼ 展开点拨';
+        }
+      }
+    }
+
+    let playbackSpeed = 1.0;
+
+    function setSpeed(speed, btn) {
+      playbackSpeed = speed;
+      const parent = btn.parentElement;
+      parent.querySelectorAll('.speed-btn').forEach(b => {
+        b.classList.remove('bg-blue-100', 'text-blue-800', 'font-bold');
+        b.classList.add('bg-slate-200', 'text-slate-700');
+      });
+      btn.classList.remove('bg-slate-200', 'text-slate-700');
+      btn.classList.add('bg-blue-100', 'text-blue-800', 'font-bold');
+      showToast('🔊 播放速度已调整为 ' + speed + 'x');
+    }
+
+    function simulateAudioPlay(audioId, btn) {
+      if (window.speechSynthesis && window.speechSynthesis.speaking) {
+        window.speechSynthesis.cancel();
+        btn.textContent = '▶';
+        btn.classList.remove('bg-amber-600');
+        btn.classList.add('bg-blue-600');
+        showToast('⏸️ 音频已暂停');
+        return;
+      }
+
+      const drawer = btn.closest('.drawer-container');
+      const scriptElem = drawer.querySelector('.drawer-content strong.text-slate-900');
+      let textToSpeak = "";
+      if (scriptElem && scriptElem.parentElement) {
+        textToSpeak = scriptElem.parentElement.innerText.replace('【录音讲稿纯口语文本（TTS_Script）】：', '').trim();
+      }
+
+      if (window.speechSynthesis && textToSpeak) {
+        const utterance = new SpeechSynthesisUtterance(textToSpeak);
+        utterance.rate = playbackSpeed;
+        utterance.lang = 'zh-CN';
+        
+        btn.textContent = '⏸';
+        btn.classList.remove('bg-blue-600');
+        btn.classList.add('bg-amber-600');
+
+        utterance.onend = function() {
+          btn.textContent = '▶';
+          btn.classList.remove('bg-amber-600');
+          btn.classList.add('bg-blue-600');
+          showToast('✅ 语音讲义播放完毕');
+        };
+
+        window.speechSynthesis.speak(utterance);
+        showToast('▶ 正在通过语音引擎为您朗读特级教师口语讲义...');
+      } else {
+        btn.textContent = '⏸';
+        btn.classList.remove('bg-blue-600');
+        btn.classList.add('bg-amber-600');
+        showToast('▶ 正在模拟播放名师音频讲义（时长约50秒）');
+        setTimeout(() => {
+          btn.textContent = '▶';
+          btn.classList.remove('bg-amber-600');
+          btn.classList.add('bg-blue-600');
+        }, 3000);
+      }
+    }
+
+    function filterSubject(subject) {
+      activeSubject = subject;
+      document.querySelectorAll('.subject-tag').forEach(tag => {
+        if (tag.getAttribute('data-subject') === subject) {
+          tag.classList.remove('bg-slate-800', 'text-slate-300');
+          tag.classList.add('bg-blue-600', 'text-white', 'font-medium');
+        } else {
+          tag.classList.remove('bg-blue-600', 'text-white', 'font-medium');
+          tag.classList.add('bg-slate-800', 'text-slate-300');
+        }
+      });
+      applyFilters();
+    }
+
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+      searchInput.addEventListener('input', () => {
+        applyFilters();
+      });
+    }
+
+    function applyFilters() {
+      const query = (searchInput ? searchInput.value.trim().toLowerCase() : '');
+      const cards = document.querySelectorAll('.content-card');
+
+      cards.forEach(card => {
+        const subjects = (card.getAttribute('data-subject') || '').toLowerCase();
+        const keywords = (card.getAttribute('data-keywords') || '').toLowerCase();
+        const text = card.innerText.toLowerCase();
+
+        const matchSubject = (activeSubject === 'all' || subjects.includes(activeSubject.toLowerCase()));
+        const matchQuery = (!query || text.includes(query) || keywords.includes(query));
+
+        if (matchSubject && matchQuery) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function copyQuote(elementId) {
+      const elem = document.getElementById(elementId);
+      if (!elem) return;
+      const text = elem.innerText.replace(/“|”/g, '').trim();
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('📋 申论高分金句已复制到剪贴板！');
+      }).catch(() => {
+        showToast('❌ 复制失败，请手动选取文字复制');
+      });
+    }
+
+    let toastTimeout = null;
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toastMsg');
+      if (!toast || !toastMsg) return;
+
+      toastMsg.textContent = msg;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      if (toastTimeout) clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 3000);
+    }
+
+    function initCharts() {
+      Chart.defaults.font.family = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+      Chart.defaults.color = '#475569';
+
+      // 图表 1: 前8个月重点机电产品出口同比增速 (柱状图)
+      const ctx1 = document.getElementById('chartTradeMachinery');
+      if (ctx1) {
+        new Chart(ctx1, {
+          type: 'bar',
+          data: {
+            labels: ['汽车出口增速', '船舶出口增速', '货物出口总增速', '工业机器人增速', '机电产品总增速', '外贸进出口总增速'],
+            datasets: [{
+              label: '同比增速 (%)',
+              data: [47.1, 29.8, 14.6, 13.0, 12.8, 17.6],
+              backgroundColor: [
+                'rgba(37, 99, 235, 0.85)',
+                'rgba(59, 130, 246, 0.80)',
+                'rgba(16, 185, 129, 0.80)',
+                'rgba(217, 119, 6, 0.85)',
+                'rgba(96, 165, 250, 0.75)',
+                'rgba(100, 116, 139, 0.70)'
+              ],
+              borderColor: [
+                '#1d4ed8',
+                '#2563eb',
+                '#059669',
+                '#b45309',
+                '#60a5fa',
+                '#475569'
+              ],
+              borderWidth: 1.5,
+              borderRadius: 6
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    return ' 增速: +' + context.parsed.y + '%';
+                  }
+                }
+              }
+            },
+            scales: {
+              y: {
+                beginAtZero: true,
+                title: { display: true, text: '同比增长率 (%)', font: { size: 11 } },
+                grid: { color: '#f1f5f9' }
+              },
+              x: {
+                grid: { display: false },
+                ticks: { font: { size: 10 } }
+              }
+            }
+          }
+        });
+      }
+
+      // 图表 2: 知识密集型服务出口主要品类增速 (极区图)
+      const ctx2 = document.getElementById('chartServiceExport');
+      if (ctx2) {
+        new Chart(ctx2, {
+          type: 'polarArea',
+          data: {
+            labels: ['个人文化和娱乐 (+57.8%)', '电信与计算机软件 (+18.4%)', '知识密集型出口总额 (+12.2%)', '智慧节能与绿色解决方案 (+26.5%)'],
+            datasets: [{
+              data: [57.8, 18.4, 12.2, 26.5],
+              backgroundColor: [
+                'rgba(217, 119, 6, 0.85)',
+                'rgba(37, 99, 235, 0.80)',
+                'rgba(16, 185, 129, 0.75)',
+                'rgba(147, 51, 234, 0.75)'
+              ]
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: 'bottom',
+                labels: { boxWidth: 10, font: { size: 10 } }
+              },
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    return ' ' + context.label + ' 增速: +' + context.parsed.r + '%';
+                  }
+                }
+              }
+            },
+            scales: {
+              r: {
+                ticks: { display: false }
+              }
+            }
+          }
+        });
+      }
+
+      // 图表 3: 国内有效发明专利拥有量构成 (环形图)
+      const ctx3 = document.getElementById('chartPatentsData');
+      if (ctx3) {
+        new Chart(ctx3, {
+          type: 'doughnut',
+          data: {
+            labels: ['战略性新兴产业发明专利 (174.6万件)', '其他领域发明专利 (392.1万件)'],
+            datasets: [{
+              data: [174.6, 392.1],
+              backgroundColor: [
+                '#2563eb', // 蓝
+                '#cbd5e1'  // 灰
+              ],
+              hoverOffset: 6
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: 'bottom',
+                labels: { boxWidth: 12, font: { size: 11 } }
+              },
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    const total = 566.7;
+                    const val = context.parsed;
+                    const pct = ((val / total) * 100).toFixed(1);
+                    return ' 拥有量: ' + val + ' 万件 (' + pct + '%)';
+                  }
+                }
+              }
+            },
+            cutout: '62%'
+          }
+        });
+      }
+
+      // 图表 4: 城市更新内涵式发展四大要素侧重 (水平条形图)
+      const ctx4 = document.getElementById('chartUrbanDimensions');
+      if (ctx4) {
+        new Chart(ctx4, {
+          type: 'bar',
+          indexAxis: 'y',
+          data: {
+            labels: ['防灾减灾与韧性安全底座', '盘活公共空间补齐民生短板', '多元化可持续市场投融资', '历史景观风貌与文脉赓续'],
+            datasets: [{
+              label: '战略权重指数 (%)',
+              data: [32, 28, 22, 18],
+              backgroundColor: [
+                'rgba(37, 99, 235, 0.85)',
+                'rgba(16, 185, 129, 0.85)',
+                'rgba(217, 119, 6, 0.85)',
+                'rgba(147, 51, 234, 0.85)'
+              ],
+              borderRadius: 6
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    return ' 战略指数: ' + context.parsed.x + '%';
+                  }
+                }
+              }
+            },
+            scales: {
+              x: {
+                beginAtZero: true,
+                max: 40,
+                title: { display: true, text: '战略布局比重 (%)', font: { size: 11 } },
+                grid: { color: '#f1f5f9' }
+              },
+              y: {
+                grid: { display: false }
+              }
+            }
+          }
+        });
+      }
+    }
+  </script>
+</body>
+</html>

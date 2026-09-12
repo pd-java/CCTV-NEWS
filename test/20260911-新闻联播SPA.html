@@ -1,0 +1,1404 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2026年09月11日 新闻联播 · 公考时政精读与知识全景 SPA</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              900: '#0f172a',
+              800: '#1e293b',
+              700: '#334155',
+            },
+            policy: {
+              blue: '#2563eb',
+              light: '#eff6ff',
+            },
+            amberGold: {
+              500: '#d97706',
+              600: '#b45309',
+              100: '#fef3c7',
+              50: '#fffbeb',
+            }
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    /* 全局基底字体与平滑过渡 */
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+    }
+    body {
+      background-color: #f8fafc;
+      color: #1e293b;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+      line-height: 1.65;
+    }
+    
+    /* 严格图表容器约束，杜绝横向滚动条 */
+    .chart-container {
+      position: relative;
+      width: 100%;
+      max-width: 650px;
+      height: 320px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* 遮罩背诵模式样式 */
+    .mask-mode-active .key-term {
+      background-color: #1e293b !important;
+      color: #1e293b !important;
+      user-select: none;
+      border-radius: 4px;
+      padding: 1px 5px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      display: inline-block;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+    }
+    .mask-mode-active .key-term:hover,
+    .mask-mode-active .key-term.revealed {
+      background-color: #fef3c7 !important;
+      color: #b45309 !important;
+      user-select: text;
+      box-shadow: 0 0 0 2px #d97706;
+    }
+
+    /* 常规重点高亮标注 */
+    .key-term {
+      background-color: #fef3c7;
+      color: #92400e;
+      font-weight: 600;
+      padding: 0 4px;
+      border-radius: 3px;
+      transition: all 0.2s ease;
+    }
+
+    /* 优雅轻量滚动条 */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+
+    /* 音频抽屉平滑动画 */
+    .drawer-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .drawer-open .drawer-content {
+      max-height: 1200px;
+    }
+
+    /* 分页激活线 */
+    .tab-btn.active {
+      background-color: #ffffff;
+      color: #2563eb;
+      border-bottom: 3px solid #2563eb;
+      font-weight: 700;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+    }
+
+    /* 闪卡立体效果 */
+    .flashcard {
+      perspective: 1000px;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased">
+
+  <!-- 顶部主导航头栏 (政务典雅深蓝) -->
+  <header class="bg-brand-900 text-white shadow-xl sticky top-0 z-50 border-b border-slate-700">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between py-3 gap-3">
+        <!-- 品牌标识与日期 -->
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-lg bg-gradient-to-tr from-amber-600 to-blue-600 flex items-center justify-center font-black text-xl text-white shadow-md">
+            政
+          </div>
+          <div>
+            <div class="flex items-center space-x-2">
+              <h1 class="text-xl sm:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
+                新闻联播 · 公考时政精读智囊
+              </h1>
+              <span class="bg-amber-500/20 text-amber-300 border border-amber-400/30 text-xs px-2 py-0.5 rounded-full font-medium">
+                2026版
+              </span>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-300 flex items-center gap-2 mt-0.5">
+              <span>📅 目标日期：2026年09月11日（星期五）</span>
+              <span class="hidden sm:inline text-slate-500">|</span>
+              <span class="hidden sm:inline">CCTV-1 官方事实核验 · 知识结构化解析</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- 顶栏快捷操作区：实时搜索 + 遮罩背诵开关 -->
+        <div class="flex items-center gap-2.5 flex-wrap sm:flex-nowrap">
+          <div class="relative flex-grow sm:w-64">
+            <input 
+              type="text" 
+              id="searchInput" 
+              placeholder="搜索考点、金句、政策..." 
+              class="w-full bg-slate-800 text-slate-100 text-sm placeholder-slate-400 rounded-lg pl-9 pr-4 py-2 border border-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+            >
+            <span class="absolute left-2.5 top-2.5 text-slate-400 text-sm">🔍</span>
+          </div>
+          <button 
+            id="maskToggleBtn" 
+            onclick="toggleMaskMode()" 
+            class="px-3.5 py-2 rounded-lg text-sm font-semibold flex items-center gap-1.5 transition-all bg-amber-600 hover:bg-amber-500 text-white shadow-md active:scale-95 whitespace-nowrap"
+            title="开启后将遮挡所有核心考点词汇，点击或悬停即可查验答案"
+          >
+            <span id="maskIcon">👁️</span>
+            <span id="maskBtnText">开启背诵遮罩模式</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 二级导航栏：模块 Tab 切换与科目标签筛选 -->
+      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between pt-2 pb-1 border-t border-slate-800 gap-2">
+        <!-- 5大功能分页标签 -->
+        <nav class="flex space-x-1 sm:space-x-2 overflow-x-auto py-1 text-sm font-medium">
+          <button onclick="switchTab('roadmap')" id="tab-roadmap" class="tab-btn active px-3.5 py-2 rounded-t-md text-slate-300 hover:text-white transition-all whitespace-nowrap">
+            🗺️ 今日学习地图
+          </button>
+          <button onclick="switchTab('core')" id="tab-core" class="tab-btn px-3.5 py-2 rounded-t-md text-slate-300 hover:text-white transition-all whitespace-nowrap">
+            ⭐⭐⭐⭐⭐ 核心必学
+          </button>
+          <button onclick="switchTab('charts')" id="tab-charts" class="tab-btn px-3.5 py-2 rounded-t-md text-slate-300 hover:text-white transition-all whitespace-nowrap">
+            ⭐⭐⭐⭐ 重点与数据
+          </button>
+          <button onclick="switchTab('cases')" id="tab-cases" class="tab-btn px-3.5 py-2 rounded-t-md text-slate-300 hover:text-white transition-all whitespace-nowrap">
+            🏛️ 文史常识与案例
+          </button>
+          <button onclick="switchTab('flashcards')" id="tab-flashcards" class="tab-btn px-3.5 py-2 rounded-t-md text-slate-300 hover:text-white transition-all whitespace-nowrap">
+            ⚡ 考点速记卡
+          </button>
+        </nav>
+
+        <!-- 科目分类筛选器 -->
+        <div class="flex items-center space-x-1 py-1 text-xs sm:text-sm text-slate-300 overflow-x-auto">
+          <span class="text-slate-400 font-medium mr-1 whitespace-nowrap">科目筛选:</span>
+          <button onclick="filterSubject('all')" class="subject-tag active px-2.5 py-1 rounded bg-blue-600 text-white font-medium hover:bg-blue-500 transition-colors whitespace-nowrap" data-subject="all">全部</button>
+          <button onclick="filterSubject('时政')" class="subject-tag px-2.5 py-1 rounded bg-slate-800 text-slate-300 hover:bg-slate-700 transition-colors whitespace-nowrap" data-subject="时政">时政</button>
+          <button onclick="filterSubject('申论')" class="subject-tag px-2.5 py-1 rounded bg-slate-800 text-slate-300 hover:bg-slate-700 transition-colors whitespace-nowrap" data-subject="申论">申论</button>
+          <button onclick="filterSubject('行测')" class="subject-tag px-2.5 py-1 rounded bg-slate-800 text-slate-300 hover:bg-slate-700 transition-colors whitespace-nowrap" data-subject="行测">行测</button>
+          <button onclick="filterSubject('常识')" class="subject-tag px-2.5 py-1 rounded bg-slate-800 text-slate-300 hover:bg-slate-700 transition-colors whitespace-nowrap" data-subject="常识">常识</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 遮罩模式激活提示横幅 -->
+  <div id="maskBanner" class="hidden bg-amber-500 text-amber-950 px-4 py-2 text-center text-sm font-bold shadow-inner flex items-center justify-center gap-2">
+    <span>💡 背诵遮罩模式已开启！核心术语已转为暗盒，鼠标悬停或点击即可揭开文字，反复默诵以强化记忆。</span>
+    <button onclick="toggleMaskMode()" class="underline hover:text-black ml-2 font-normal text-xs">退出模式</button>
+  </div>
+
+  <!-- 主体内容容器 -->
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+    <!-- ================================================================= -->
+    <!-- TAB 1: 🗺️ 今日学习地图 (Roadmap)                                 -->
+    <!-- ================================================================= -->
+    <section id="pane-roadmap" class="tab-pane space-y-6">
+      <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between pb-4 border-b border-slate-100 gap-4">
+          <div>
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-100 text-blue-800 mb-2">
+              全景导图 · 核心脉络
+            </span>
+            <h2 class="text-2xl font-bold text-slate-900">2026年9月11日 新闻联播公考考点全景架构</h2>
+            <p class="text-slate-600 text-sm mt-1">
+              本日《新闻联播》提炼 7 项高价值考点单元，涵盖全球发展倡议汇聚全球南方合力、李强主持国常会部署算力网与安全生产、李强签署国务院令公布《市场监督管理所条例》、数据产权登记制度正式推行、8月电商物流指数回升等核心议题。
+            </p>
+          </div>
+          <div class="flex items-center gap-4 text-center">
+            <div class="bg-amber-50 border border-amber-200 rounded-lg px-4 py-2">
+              <div class="text-xl font-black text-amber-600">2 项</div>
+              <div class="text-xs text-amber-800 font-medium">★★★★★ 核心必学</div>
+            </div>
+            <div class="bg-blue-50 border border-blue-200 rounded-lg px-4 py-2">
+              <div class="text-xl font-black text-blue-600">4 项</div>
+              <div class="text-xs text-blue-800 font-medium">★★★★ 重点掌握</div>
+            </div>
+            <div class="bg-slate-50 border border-slate-200 rounded-lg px-4 py-2">
+              <div class="text-xl font-black text-slate-600">1 项</div>
+              <div class="text-xs text-slate-700 font-medium">基层法治速览</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 知识树分栏网格 -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+          <!-- 分支 1: 大国外交与全球发展倡议 -->
+          <div class="bg-slate-50 p-5 rounded-xl border-l-4 border-amber-500 shadow-xs hover:shadow-md transition-shadow">
+            <div class="flex items-center justify-between mb-3">
+              <span class="font-bold text-slate-800 text-lg flex items-center gap-1.5">
+                🌐 全球发展倡议实践
+              </span>
+              <span class="text-xs bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full font-bold">★★★★★</span>
+            </div>
+            <p class="text-xs text-slate-500 mb-3">考核范围：大国外交、全球南方合作、人类命运共同体</p>
+            <ul class="space-y-2 text-sm text-slate-700">
+              <li class="flex items-start gap-2">
+                <span class="text-amber-600 font-bold">•</span>
+                <span><strong>时政头条：</strong>践行<mark class="key-term">全球发展倡议</mark>，汇聚发展振兴力量</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-amber-600 font-bold">•</span>
+                <span><strong>务实成果：</strong>项目库突破<mark class="key-term">1000个项目</mark>，80多国加入倡议之友小组</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-amber-600 font-bold">•</span>
+                <span><strong>理念内涵：</strong>坚持普惠包容、创新驱动，重振联合国2030议程</span>
+              </li>
+            </ul>
+            <button onclick="switchTab('core')" class="mt-4 text-xs font-semibold text-blue-600 hover:text-blue-800 flex items-center gap-1">
+              进入核心必学研读 →
+            </button>
+          </div>
+
+          <!-- 分支 2: 国常会部署算力网与安全生产 -->
+          <div class="bg-slate-50 p-5 rounded-xl border-l-4 border-blue-600 shadow-xs hover:shadow-md transition-shadow">
+            <div class="flex items-center justify-between mb-3">
+              <span class="font-bold text-slate-800 text-lg flex items-center gap-1.5">
+                ⚡ 算力网络与安全生产
+              </span>
+              <span class="text-xs bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full font-bold">★★★★★</span>
+            </div>
+            <p class="text-xs text-slate-500 mb-3">考核范围：新质生产力底座、算电协同、安全生产责任制</p>
+            <ul class="space-y-2 text-sm text-slate-700">
+              <li class="flex items-start gap-2">
+                <span class="text-blue-600 font-bold">•</span>
+                <span><strong>算力底座：</strong>推动<mark class="key-term">算电协同、算网融合</mark>，构建多层次网络体系</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-blue-600 font-bold">•</span>
+                <span><strong>安全生产：</strong>落实<mark class="key-term">“三管三必须”</mark>，严肃追责违规层层转包</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-blue-600 font-bold">•</span>
+                <span><strong>统筹兼顾：</strong>老旧水库“一库一策”提升，教育资源学龄人口适配</span>
+              </li>
+            </ul>
+            <button onclick="switchTab('core')" class="mt-4 text-xs font-semibold text-blue-600 hover:text-blue-800 flex items-center gap-1">
+              进入核心必学研读 →
+            </button>
+          </div>
+
+          <!-- 分支 3: 现代化市场体系与要素改革 -->
+          <div class="bg-slate-50 p-5 rounded-xl border-l-4 border-emerald-500 shadow-xs hover:shadow-md transition-shadow">
+            <div class="flex items-center justify-between mb-3">
+              <span class="font-bold text-slate-800 text-lg flex items-center gap-1.5">
+                📊 数据产权与现代市场
+              </span>
+              <span class="text-xs bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full font-bold">★★★★</span>
+            </div>
+            <p class="text-xs text-slate-500 mb-3">考核范围：数据要素三权分置、基层执法规范、绿色矿山</p>
+            <ul class="space-y-2 text-sm text-slate-700">
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-600 font-bold">•</span>
+                <span><strong>数据制度：</strong>正式推行<mark class="key-term">数据产权登记制度</mark>，确权“三权分置”</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-600 font-bold">•</span>
+                <span><strong>行政法治：</strong>国务院公布<mark class="key-term">《市场监督管理所条例》</mark>规范基层执法</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-600 font-bold">•</span>
+                <span><strong>物流活力：</strong>8月电商物流指数升至<mark class="key-term">111.5点</mark>，农村业务量高增</span>
+              </li>
+            </ul>
+            <button onclick="switchTab('charts')" class="mt-4 text-xs font-semibold text-blue-600 hover:text-blue-800 flex items-center gap-1">
+              查看数据可视化图表 →
+            </button>
+          </div>
+        </div>
+
+        <!-- 备考闭环提示 -->
+        <div class="mt-6 bg-blue-50/70 border border-blue-100 rounded-lg p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+          <div class="text-sm text-blue-900">
+            <strong>💡 今日复习备考指南：</strong>
+            头条“全球发展倡议”是考察中国外交战略与全球治理参与的最佳答题范本；李强总理主持召开的国常会紧扣“算力基础设施”与“安全生产底线”，非常适合申论论述“统筹高质量发展和高水平安全”；《市场监督管理所条例》与国家数据产权登记制度则是行政法常识与新质生产力试题的高频考点。
+          </div>
+          <button onclick="switchTab('flashcards')" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded text-xs font-medium whitespace-nowrap shadow-xs">
+            开始闪卡速记
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- TAB 2: ⭐⭐⭐⭐⭐ 核心必学 (Core Cards - 2组双栏精编卡片)          -->
+    <!-- ================================================================= -->
+    <section id="pane-core" class="tab-pane hidden space-y-6">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-200">
+        <div>
+          <h2 class="text-2xl font-bold text-slate-900 flex items-center gap-2">
+            <span>⭐⭐⭐⭐⭐</span> 今日核心必学考点 (共 2 组双栏精编卡片)
+          </h2>
+          <p class="text-slate-600 text-sm mt-1">
+            紧扣国考/省考申论对策题、综合分析题及行测常识，点击卡片底部的音频抽屉可收听名师录音讲义。
+          </p>
+        </div>
+      </div>
+
+      <!-- 核心卡片 1：全球发展倡议 -->
+      <article class="content-card bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden hover:border-blue-400 transition-all" data-subject="时政 申论" data-keywords="全球发展倡议 习近平 全球南方 人类命运共同体 2030议程 倡议之友小组 项目库">
+        <div class="p-6">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+            <div class="flex items-center gap-2">
+              <span class="bg-amber-600 text-white text-xs font-bold px-2.5 py-1 rounded">★★★★★ 核心必学</span>
+              <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-0.5 rounded">大国外交与全球治理</span>
+              <span class="bg-slate-100 text-slate-700 text-xs font-medium px-2 py-0.5 rounded">联播头条</span>
+            </div>
+            <div class="flex items-center gap-1">
+              <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full">标签：时政 / 申论</span>
+            </div>
+          </div>
+
+          <h3 class="text-xl font-bold text-slate-900 mb-3 hover:text-blue-600 transition-colors">
+            【新思想引领新征程】践行全球发展倡议 汇聚发展振兴力量
+          </h3>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 mb-5">
+            <!-- 左栏：一句话看懂与事实链 -->
+            <div class="lg:col-span-6 bg-slate-50 p-4 rounded-lg border border-slate-100 space-y-3">
+              <div class="flex items-start gap-2">
+                <span class="text-lg">🎯</span>
+                <div>
+                  <h4 class="text-sm font-bold text-slate-800">一句话看懂</h4>
+                  <p class="text-sm text-slate-700 mt-1">
+                    中国以实际行动践行<mark class="key-term">全球发展倡议（GDI）</mark>，聚焦发展中国家迫切关切，推动项目库突破<mark class="key-term">1000个合作项目</mark>，凝聚全球南方振兴合力。
+                  </p>
+                </div>
+              </div>
+
+              <div class="pt-2 border-t border-slate-200 text-xs text-slate-600 space-y-1.5">
+                <div class="font-bold text-slate-700">📜 联播权威事实链：</div>
+                <p>自习近平主席2021年提出全球发展倡议以来，80多个国家加入“全球发展倡议之友小组”；中国设立全球发展和南南合作基金，支持减贫、粮安、抗疫、数字互联等八大重点领域务实合作；金砖国家第十八次会晤前夕，国际社会热切期待中国持续引领普惠包容全球化。</p>
+              </div>
+            </div>
+
+            <!-- 右栏：考点提炼与申论金句 -->
+            <div class="lg:col-span-6 bg-blue-50/50 p-4 rounded-lg border border-blue-100 space-y-3">
+              <div>
+                <h4 class="text-sm font-bold text-blue-900 flex items-center gap-1.5">
+                  <span>📌</span> 行测与时政考点提炼
+                </h4>
+                <ul class="text-xs text-slate-700 mt-1.5 space-y-1 list-disc list-inside">
+                  <li><strong>核心原则：</strong>坚持发展优先、以人民为中心、普惠包容、创新驱动、人与自然和谐共生、行动导向。</li>
+                  <li><strong>治理主张：</strong>倡导普惠包容的经济全球化，反对“筑墙设垒”“脱钩断链”，保障发展中国家正当权益。</li>
+                  <li><strong>三大全球倡议协同：</strong>全球发展倡议、全球安全倡议、全球文明倡议相互支撑，共筑人类命运共同体。</li>
+                </ul>
+              </div>
+
+              <div class="pt-2 border-t border-blue-200/60">
+                <h4 class="text-sm font-bold text-amber-900 flex items-center gap-1.5">
+                  <span>💡</span> 申论答题高分金句
+                </h4>
+                <div class="bg-white p-2.5 rounded border border-amber-200 mt-1 text-xs text-slate-800 leading-relaxed font-medium">
+                  “<mark class="key-term">发展是人类社会的永恒主题，也是解决一切问题的总钥匙。以全球发展倡议为帆，汇聚全球南方振兴之力，在普惠包容中共享繁荣机遇，书写美美与共的时代华章</mark>。”
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 音频讲义折叠抽屉 -->
+          <div class="border border-slate-200 rounded-lg overflow-hidden bg-slate-50 drawer-container" id="drawer-core-1">
+            <button 
+              onclick="toggleDrawer('drawer-core-1')" 
+              class="w-full px-4 py-3 bg-slate-100 hover:bg-slate-200 text-slate-800 text-sm font-bold flex items-center justify-between transition-colors"
+            >
+              <span class="flex items-center gap-2">
+                <span>🎙️</span> 名师解析点拨与口语化讲义（TTS 试听与录音文本）
+                <span class="text-xs font-normal text-slate-500 bg-white px-2 py-0.5 rounded border border-slate-200">预计 48 秒</span>
+              </span>
+              <span class="drawer-arrow text-slate-500 font-mono transition-transform">▼ 展开点拨</span>
+            </button>
+            <div class="drawer-content px-4 py-3 bg-white border-t border-slate-200 space-y-3 text-sm">
+              <div class="flex items-center justify-between bg-slate-50 p-3 rounded-lg border border-slate-200 gap-3">
+                <div class="flex items-center gap-2">
+                  <button onclick="simulateAudioPlay('audio-p1', this)" class="w-8 h-8 rounded-full bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center text-xs font-bold shadow-xs">
+                    ▶
+                  </button>
+                  <div>
+                    <div class="text-xs font-bold text-slate-800">特级教师口语精讲 · 全球发展倡议与中国方案</div>
+                    <div class="text-[11px] text-slate-500">时长 00:48 | 对应 9月11日联播头条</div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="text-xs text-slate-500 font-mono">倍速:</span>
+                  <button onclick="setSpeed(1.0, this)" class="speed-btn text-xs px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-bold">1.0x</button>
+                  <button onclick="setSpeed(1.25, this)" class="speed-btn text-xs px-2 py-0.5 rounded bg-slate-200 text-slate-700">1.25x</button>
+                  <button onclick="setSpeed(1.5, this)" class="speed-btn text-xs px-2 py-0.5 rounded bg-slate-200 text-slate-700">1.5x</button>
+                </div>
+              </div>
+
+              <div class="text-xs space-y-2">
+                <div class="bg-amber-50 p-2.5 rounded border-l-2 border-amber-500 text-amber-900">
+                  <strong>【Teacher_Notes 考点定位】：</strong>
+                  全球发展倡议在公考中不仅考查单选知识点，更常作为申论“大国担当、中国式现代化世界意义、人类命运共同体”论述的宏观依托。答题切记抓住两个关键词：“全球南方”与“八大重点领域减贫惠民”。
+                </div>
+                <div class="text-slate-700 bg-slate-50 p-3 rounded leading-relaxed border border-slate-100">
+                  <strong class="text-slate-900">【录音讲稿纯口语文本（TTS_Script）】：</strong><br>
+                  “同学们注意今天的头条报道。在国际形势动荡、个别大国搞零和博弈的当下，中国始终高举发展旗帜。全球发展倡议提出以来，已经有上千个务实项目落地生根。在申论论证‘对外开放与人类命运共同体’时，我们要学会运用‘把发展置于国际议程中心’的论点，结合‘全球南方联合自强’，体现我国作为负责任大国推动普惠包容经济全球化的智慧与格局。”
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 核心卡片 2：李强主持国常会部署算力网与安全生产 -->
+      <article class="content-card bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden hover:border-blue-400 transition-all" data-subject="时政 申论 行测" data-keywords="国常会 李强 算力网 算电协同 算网融合 安全生产 三管三必须 层层转包 老旧水库 基金会条例">
+        <div class="p-6">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+            <div class="flex items-center gap-2">
+              <span class="bg-amber-600 text-white text-xs font-bold px-2.5 py-1 rounded">★★★★★ 核心必学</span>
+              <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-0.5 rounded">国务院常务会议部署</span>
+              <span class="bg-slate-100 text-slate-700 text-xs font-medium px-2 py-0.5 rounded">高层会议</span>
+            </div>
+            <div class="flex items-center gap-1">
+              <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full">标签：时政 / 申论 / 行测</span>
+            </div>
+          </div>
+
+          <h3 class="text-xl font-bold text-slate-900 mb-3 hover:text-blue-600 transition-colors">
+            【国常会部署两大战略底座】推动算电协同算网融合 & 严密落实安全生产责任制
+          </h3>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 mb-5">
+            <!-- 左栏：一句话看懂与事实链 -->
+            <div class="lg:col-span-6 bg-slate-50 p-4 rounded-lg border border-slate-100 space-y-3">
+              <div class="flex items-start gap-2">
+                <span class="text-lg">🎯</span>
+                <div>
+                  <h4 class="text-sm font-bold text-slate-800">一句话看懂</h4>
+                  <p class="text-sm text-slate-700 mt-1">
+                    以<mark class="key-term">“算电协同、算网融合”</mark>夯实人工智能数字底座；以落实<mark class="key-term">“三管三必须”</mark>和整治违规层层转包守牢安全生产红线。
+                  </p>
+                </div>
+              </div>
+
+              <div class="pt-2 border-t border-slate-200 text-xs text-slate-600 space-y-1.5">
+                <div class="font-bold text-slate-700">📜 联播权威事实链：</div>
+                <p>李强主持召开国务院常务会议，部署安全生产治本攻坚；强调针对规章落实不严、工程层层转包采取有力措施；完善算力基础设施，加快绿电直连、源网荷储落地；推进老旧水库“一库一策”改造提升；按学龄人口变化动态配置教育资源；审议通过《基金会管理条例（修订草案）》。</p>
+              </div>
+            </div>
+
+            <!-- 右栏：考点提炼与申论金句 -->
+            <div class="lg:col-span-6 bg-blue-50/50 p-4 rounded-lg border border-blue-100 space-y-3">
+              <div>
+                <h4 class="text-sm font-bold text-blue-900 flex items-center gap-1.5">
+                  <span>📌</span> 行测与时政考点提炼
+                </h4>
+                <ul class="text-xs text-slate-700 mt-1.5 space-y-1 list-disc list-inside">
+                  <li><strong>算力网新部署：</strong>构建多层次网络化算力体系，加强算力资源监测调度和骨干光纤网络建设。</li>
+                  <li><strong>绿电协同：</strong>加快<mark class="key-term">绿电直连、源网荷储</mark>等项目落地，实现算力与电力的统筹规划与低碳匹配。</li>
+                  <li><strong>安全生产硬要求：</strong>严格落实<mark class="key-term">“三管三必须”</mark>（管行业必须管安全、管业务必须管安全、管生产经营必须管安全），严厉打击非法转包挂靠。</li>
+                </ul>
+              </div>
+
+              <div class="pt-2 border-t border-blue-200/60">
+                <h4 class="text-sm font-bold text-amber-900 flex items-center gap-1.5">
+                  <span>💡</span> 申论答题高分金句
+                </h4>
+                <div class="bg-white p-2.5 rounded border border-amber-200 mt-1 text-xs text-slate-800 leading-relaxed font-medium">
+                  “<mark class="key-term">算力澎湃激活新质引擎，安全严密筑牢发展基石。以算电协同拓宽数智发展空间，以抓铁有痕压实安全生产防线，在统筹高质量发展与高水平安全中行稳致远</mark>。”
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 音频讲义折叠抽屉 -->
+          <div class="border border-slate-200 rounded-lg overflow-hidden bg-slate-50 drawer-container" id="drawer-core-2">
+            <button 
+              onclick="toggleDrawer('drawer-core-2')" 
+              class="w-full px-4 py-3 bg-slate-100 hover:bg-slate-200 text-slate-800 text-sm font-bold flex items-center justify-between transition-colors"
+            >
+              <span class="flex items-center gap-2">
+                <span>🎙️</span> 名师解析点拨与口语化讲义（TTS 试听与录音文本）
+                <span class="text-xs font-normal text-slate-500 bg-white px-2 py-0.5 rounded border border-slate-200">预计 50 秒</span>
+              </span>
+              <span class="drawer-arrow text-slate-500 font-mono transition-transform">▼ 展开点拨</span>
+            </button>
+            <div class="drawer-content px-4 py-3 bg-white border-t border-slate-200 space-y-3 text-sm">
+              <div class="flex items-center justify-between bg-slate-50 p-3 rounded-lg border border-slate-200 gap-3">
+                <div class="flex items-center gap-2">
+                  <button onclick="simulateAudioPlay('audio-p2', this)" class="w-8 h-8 rounded-full bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center text-xs font-bold shadow-xs">
+                    ▶
+                  </button>
+                  <div>
+                    <div class="text-xs font-bold text-slate-800">特级教师口语精讲 · 国常会部署：算力底座与安全生产责任</div>
+                    <div class="text-[11px] text-slate-500">时长 00:50 | 对应 9月11日李强主持国常会</div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="text-xs text-slate-500 font-mono">倍速:</span>
+                  <button onclick="setSpeed(1.0, this)" class="speed-btn text-xs px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-bold">1.0x</button>
+                  <button onclick="setSpeed(1.25, this)" class="speed-btn text-xs px-2 py-0.5 rounded bg-slate-200 text-slate-700">1.25x</button>
+                  <button onclick="setSpeed(1.5, this)" class="speed-btn text-xs px-2 py-0.5 rounded bg-slate-200 text-slate-700">1.5x</button>
+                </div>
+              </div>
+
+              <div class="text-xs space-y-2">
+                <div class="bg-amber-50 p-2.5 rounded border-l-2 border-amber-500 text-amber-900">
+                  <strong>【Teacher_Notes 考点定位】：</strong>
+                  本条新闻是公考中“统筹高质量发展与高水平安全”的绝佳试题素材。一方面，AI新时代的核心硬件是算力，必须实现“算力与电力”的绿色协同；另一方面，针对近段时间安全事故，国常会再次重申严肃惩处“层层转包”，是法治政府与基层治理必背对策。
+                </div>
+                <div class="text-slate-700 bg-slate-50 p-3 rounded leading-relaxed border border-slate-100">
+                  <strong class="text-slate-900">【录音讲稿纯口语文本（TTS_Script）】：</strong><br>
+                  “本次国常会的议题极具公考风向标意义。大家看两点：一是数字经济的底层支撑，过去光提算力，现在国常会强调‘算电协同、算网融合’，也就是要把绿色电力与计算中心无缝链接；二是安全生产领域，会议特别点出了‘工程层层转包’这个老大难问题，要求落实‘三管三必须’。申论在写安全生产综合分析或者对策题时，直接套用‘严格属地管理、斩断违规转包利益链、常态化穿透执法’，得分点非常紧凑。”
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- TAB 3: ⭐⭐⭐⭐ 重点与数据 (Charts & Data - 4组可视化图表)         -->
+    <!-- ================================================================= -->
+    <section id="pane-charts" class="tab-pane hidden space-y-6">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-200">
+        <div>
+          <h2 class="text-2xl font-bold text-slate-900 flex items-center gap-2">
+            <span>⭐⭐⭐⭐</span> 重点与数据可视化深度解析
+          </h2>
+          <p class="text-slate-600 text-sm mt-1">
+            严选 4 组经中物联、国家数据局、自然资源部权威发布的宏观战略数据，适配资料分析测算与申论实证分析。
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- 图表卡片 1：8月份中国电商物流指数结构与走势 (Chart 1) -->
+        <article class="content-card bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col justify-between" data-subject="时政 行测 申论" data-keywords="中物联 电商物流指数 111.5点 农村物流 127.6点 消费升级 智能电子 换季消费">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold px-2 py-0.5 rounded bg-blue-100 text-blue-800">宏观经济 · 中物联权威指数</span>
+              <span class="text-xs text-slate-500 font-mono">2026年8月份数据</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-900">
+              8月份中国电商物流各关键指标回升态势 (点)
+            </h3>
+            <p class="text-xs text-slate-600 mt-1 mb-3">
+              电商物流总指数升至<mark class="key-term">111.5点</mark>，农村业务量指数达<mark class="key-term">127.6点</mark>，总业务量与农村业务量同比增速均超<mark class="key-term">20%</mark>。
+            </p>
+          </div>
+
+          <div class="chart-container">
+            <canvas id="chartLogisticsIndex"></canvas>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-slate-600 bg-slate-50 p-2.5 rounded">
+            <strong>🎯 考点定位：</strong>9项分项指数中有8项回升，消费偏好加速向AI类智能产品迁移，农村基础设施完善激活下沉市场内需。
+          </div>
+        </article>
+
+        <!-- 图表卡片 2：我国数据产权登记制度“三权分置”体系 (Chart 2) -->
+        <article class="content-card bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col justify-between" data-subject="时政 申论 常识" data-keywords="国家数据局 数据产权登记 三权分置 数据持有权 数据使用权 数据经营权 资产入表">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-800">要素市场化 · 国家数据局部署</span>
+              <span class="text-xs text-slate-500 font-mono">2026年9月11日启动试运行</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-900">
+              国家数据产权登记制度与服务体系三权分置支撑权重 (%)
+            </h3>
+            <p class="text-xs text-slate-600 mt-1 mb-3">
+              出具数据“身份证明”，破除确权阻碍，有力支撑<mark class="key-term">数据资产入表、融资担保、作价入股</mark>。
+            </p>
+          </div>
+
+          <div class="chart-container">
+            <canvas id="chartDataRights"></canvas>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-slate-600 bg-slate-50 p-2.5 rounded">
+            <strong>🎯 申论素材：</strong>“以制度创新解开数据确权难题，让沉睡的数据资源变为奔涌的新质生产力活水。”
+          </div>
+        </article>
+
+        <!-- 图表卡片 3：全国省级以上绿色矿山建设梯队构成 (Chart 3) -->
+        <article class="content-card bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col justify-between" data-subject="行测 申论" data-keywords="自然资源部 绿色矿山 5600余家 三率指标 资源集约利用 呆矿变活矿">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800">美丽中国 · 自然资源部数据</span>
+              <span class="text-xs text-slate-500 font-mono">建成超5600余家</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-900">
+              全国绿色矿山分级建设数量与大中型矿山产能占比
+            </h3>
+            <p class="text-xs text-slate-600 mt-1 mb-3">
+              大中型矿山产能占比超<mark class="key-term">80%</mark>，低品位再评价使钴、铼新增资源量实现超<mark class="key-term">100%</mark>增幅。
+            </p>
+          </div>
+
+          <div class="chart-container">
+            <canvas id="chartGreenMines"></canvas>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-slate-600 bg-slate-50 p-2.5 rounded">
+            <strong>🎯 考点定位：</strong>严格执行“开采回采率、选矿回收率、综合利用率”三率标准，推动矿地和谐与清洁开采。
+          </div>
+        </article>
+
+        <!-- 图表卡片 4：算力网建设“算电协同、算网融合”核心布局 (Chart 4) -->
+        <article class="content-card bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col justify-between" data-subject="时政 行测 申论" data-keywords="国常会 算力网 绿电直连 源网荷储 光纤网络 算电协同 算力调度">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold px-2 py-0.5 rounded bg-purple-100 text-purple-800">新质基建 · 国常会部署体系</span>
+              <span class="text-xs text-slate-500 font-mono">算力网协同架构</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-900">
+              现代化算力网“算电协同与多层次布局”要素资源投向 (%)
+            </h3>
+            <p class="text-xs text-slate-600 mt-1 mb-3">
+              算力是AI基础支撑，推动算力基础设施与骨干光纤网络、绿电直连和源网荷储紧密对接。
+            </p>
+          </div>
+
+          <div class="chart-container">
+            <canvas id="chartComputePower"></canvas>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-slate-600 bg-slate-50 p-2.5 rounded">
+            <strong>🎯 申论金句：</strong>“让澎湃算力与绿电清波相得益彰，以多层次算力网挺起人工智能革命的强劲筋骨。”
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- TAB 4: 🏛️ 文史常识与案例 (5项)                                     -->
+    <!-- ================================================================= -->
+    <section id="pane-cases" class="tab-pane hidden space-y-6">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-200">
+        <div>
+          <h2 class="text-2xl font-bold text-slate-900 flex items-center gap-2">
+            <span>🏛️</span> 文史常识与精选典型案例 (共 5 项)
+          </h2>
+          <p class="text-slate-600 text-sm mt-1">
+            提炼本日《新闻联播》包含基层行政法治、能源转型、国际双向投资、反垄断涉外法治与水利安澜的公考必考案例。
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <!-- 案例 1: 《市场监督管理所条例》公布施行 -->
+        <article class="content-card bg-white rounded-xl shadow-sm border border-slate-200 p-5 hover:border-blue-400 transition-all flex flex-col justify-between" data-subject="常识 行测 申论" data-keywords="市场监督管理所条例 李强 国务院令 基层执法 派出机构 优化营商环境 11月1日施行">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="bg-blue-100 text-blue-800 text-xs font-bold px-2 py-0.5 rounded">行政法治 · 国务院令公布</span>
+              <span class="text-xs text-slate-400 font-mono">自2026年11月1日起施行</span>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-2">
+              【案例1】李强签署国务院令公布《市场监督管理所条例》
+            </h3>
+            <div class="text-sm text-slate-700 space-y-2 leading-relaxed">
+              <p><strong>机构性质定位：</strong>明确市场监督管理所是<mark class="key-term">县级市场监管部门的派出机构</mark>，打通市场监管法治化的“最后一公里”。</p>
+              <p><strong>基层协同机制：</strong>建立健全将市场监管所纳入乡镇、街道统一指挥协调的工作机制，协同抓好日常监管、食品安全与投诉处理。</p>
+              <p><strong>规范涉企执法：</strong>严格规范公正文明执法，最大程度减少对企业正常生产经营的干扰，优化法治化营商环境。</p>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-blue-700 font-medium">
+            💡 行测常识考点：市场监督管理所是“派出机构”而非“派出机关”，自2026年11月1日起施行。
+          </div>
+        </article>
+
+        <!-- 案例 2: 第十六次APEC能源部长会议在北京开幕 -->
+        <article class="content-card bg-white rounded-xl shadow-sm border border-slate-200 p-5 hover:border-emerald-400 transition-all flex flex-col justify-between" data-subject="时政 申论" data-keywords="亚太经合组织 APEC 能源部长会议 丁薛祥 四个革命一个合作 绿色转型 能源安全">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2 py-0.5 rounded">多边合作 · 绿色低碳转型</span>
+              <span class="text-xs text-slate-400 font-mono">第十六次APEC能源部长会</span>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-2">
+              【案例2】丁薛祥出席第十六次亚太经合组织能源部长会议并致辞
+            </h3>
+            <div class="text-sm text-slate-700 space-y-2 leading-relaxed">
+              <p><strong>战略指引：</strong>深入贯彻习近平主席<mark class="key-term">“四个革命、一个合作”</mark>（能源消费、供给、技术、体制革命，全方位加强国际合作）能源安全新战略。</p>
+              <p><strong>绿色转型方案：</strong>中国水电、风电、光伏装机与发电量连续领跑全球，加速建设以可再生能源为主体的新型电力系统。</p>
+              <p><strong>亚太包容共享：</strong>呼吁亚太各经济体破除绿色贸易壁垒，推动资金、技术互惠共享，共建清洁美丽亚太。</p>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-emerald-800 font-medium">
+            💡 申论论述：统筹立足富煤贫油少气国情与先立后破原则，以绿色低碳驱动经济高质量发展。
+          </div>
+        </article>
+
+        <!-- 案例 3: 第二十六届中国国际投资贸易洽谈会（厦门）成果丰硕 -->
+        <article class="content-card bg-white rounded-xl shadow-sm border border-slate-200 p-5 hover:border-amber-400 transition-all flex flex-col justify-between" data-subject="时政 申论" data-keywords="投洽会 厦门 商务部 扩大双向投资 共促全球发展 具身智能 投资中国">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="bg-amber-100 text-amber-800 text-xs font-bold px-2 py-0.5 rounded">对外经贸 · 双向投资旗舰</span>
+              <span class="text-xs text-slate-400 font-mono">129个国家和地区参会</span>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-2">
+              【案例3】第二十六届投洽会闭幕：高水平双向投资拓展全球新空间
+            </h3>
+            <div class="text-sm text-slate-700 space-y-2 leading-relaxed">
+              <p><strong>大会主题：</strong>以<mark class="key-term">“扩大双向投资 共促全球发展”</mark>为主题，聚焦“投资中国”“中国投资”“国际投资”三大主线。</p>
+              <p><strong>产业风向标：</strong>人形机器人乐团演奏、低空经济飞行器、全固态电池等前沿项目集中签约，新质生产力成为全球引资热点。</p>
+              <p><strong>多边共赢舞台：</strong>成为联合国贸发会议等多家国际组织和“全球南方”国家深度链接中国超大规模市场的战略桥梁。</p>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-amber-800 font-medium">
+            💡 申论论述：引资量质齐升，从“引进来”资本到“引进来”高水平研发中心，展现制度型开放的强大向心力。
+          </div>
+        </article>
+
+        <!-- 案例 4: 整治无序低价竞争 & 海外反垄断合规服务平台上线 -->
+        <article class="content-card bg-white rounded-xl shadow-sm border border-slate-200 p-5 hover:border-purple-400 transition-all flex flex-col justify-between" data-subject="行测 常识 申论" data-keywords="反不正当竞争 工业品成本核算 低价无序竞争 海外反垄断合规 涉外法治 全国统一大市场">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="bg-purple-100 text-purple-800 text-xs font-bold px-2 py-0.5 rounded">公平竞争 · 统一大市场建设</span>
+              <span class="text-xs text-slate-400 font-mono">反“内卷式”恶性竞争</span>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-2">
+              【案例4】明确重要工业品成本核算规范 & 上线海外反垄断平台
+            </h3>
+            <div class="text-sm text-slate-700 space-y-2 leading-relaxed">
+              <p><strong>破除“内卷式”恶性竞争：</strong>有关部门明确重要工业品生产成本核算规范，严厉整治<mark class="key-term">低于成本低价倾销与恶性价格战</mark>，维护健康产业链生态。</p>
+              <p><strong>涉外法治护航出海：</strong>市场监管总局正式上线<mark class="key-term">海外反垄断合规服务平台</mark>，为中资企业应对海外反垄断与长臂管辖提供全链条法治指引。</p>
+              <p><strong>制度支撑：</strong>对内强化公平竞争审查，对外构建涉外经贸安全盾牌，协同推进全国统一大市场。</p>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-purple-800 font-medium">
+            💡 申论论述：坚决打破“劣币驱逐良币”的价格怪圈，以法治化制度支撑引导产业迈向高价值创造。
+          </div>
+        </article>
+
+        <!-- 案例 5: 全国老旧水库系统改造提升与江河安澜防线 -->
+        <article class="content-card bg-white rounded-xl shadow-sm border border-slate-200 p-5 hover:border-slate-400 transition-all md:col-span-2 flex flex-col justify-between" data-subject="时政 常识 申论" data-keywords="国常会 水库安全 老旧水库改造 一库一策 防汛抗洪 江河安澜 统筹发展和安全">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="bg-slate-200 text-slate-800 text-xs font-bold px-2 py-0.5 rounded">国家水网 · 统筹发展和安全</span>
+              <span class="text-xs text-slate-400 font-mono">国常会重大部署</span>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-2">
+              【案例5】全面系统推进老旧水库改造提升：守牢江河安澜生命线
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-slate-700">
+              <p><strong>因库施策精准除险：</strong>国常会明确老旧水库安全直接关系防汛抗洪与经济社会大局，要求科学优化改造标准，坚持<mark class="key-term">“一库一策”</mark>制定方案。</p>
+              <p><strong>建设与管护并重：</strong>严把工程质量关的同时，同步提升日常管护与数字化智能调度水平，消除“建而不管”的安全隐患。</p>
+              <p><strong>多元要素保障机制：</strong>健全政府投入与社会资本协同机制，兼顾流域防洪防汛、农业灌溉、城乡供水与生态用水。</p>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 text-xs text-slate-700 font-medium">
+            💡 申论论述：治水安邦是千秋大计。下好未雨绸缪先手棋，织密防汛水网安全网，保障人民生命财产安全。
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- TAB 5: ⚡ 考点速记卡 (包含一键复制金句)                          -->
+    <!-- ================================================================= -->
+    <section id="pane-flashcards" class="tab-pane hidden space-y-6">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-200">
+        <div>
+          <h2 class="text-2xl font-bold text-slate-900 flex items-center gap-2">
+            <span>⚡</span> 考点速记闪卡与申论高分金句库
+          </h2>
+          <p class="text-slate-600 text-sm mt-1">
+            支持一键翻转闪卡、开启挖词遮罩、一键复制申论金句至剪贴板，高效备战真题作答。
+          </p>
+        </div>
+        <div class="text-xs text-slate-500">
+          点击卡片翻转答案
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- 卡片 1: 全球发展倡议与多边主义 -->
+        <div class="flashcard bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col justify-between min-h-[300px] hover:border-amber-400 transition-all">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-900">速记 01 · 大国外交</span>
+              <span class="text-xs text-slate-400">人类命运共同体</span>
+            </div>
+            <h4 class="font-bold text-slate-900 text-base mb-2">如何以“全球发展倡议”凝聚全球南方现代化合力？</h4>
+            <div class="text-sm text-slate-700 space-y-1.5 mt-3">
+              <p>① 核心原则：坚持<mark class="key-term">发展优先、普惠包容、行动导向</mark>。</p>
+              <p>② 务实载体：推动全球发展项目库突破<mark class="key-term">1000个项目</mark>，八大重点领域生根落地。</p>
+              <p>③ 全球共识：以真正的多边主义对抗零和博弈，推动联合国2030可持续发展目标重回正轨。</p>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100">
+            <div class="text-xs text-slate-500 mb-2">⭐ 申论核心金句：</div>
+            <div class="bg-slate-50 p-2 rounded text-xs text-slate-800 leading-relaxed relative group">
+              <span id="quote-1">“发展是人类社会的永恒主题，也是解决一切问题的总钥匙。以全球发展倡议为帆，汇聚全球南方振兴之力，在普惠包容中共享繁荣机遇，书写美美与共的时代华章。”</span>
+              <button onclick="copyQuote('quote-1')" class="mt-2 w-full py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded text-xs font-semibold flex items-center justify-center gap-1 transition-colors">
+                📋 一键复制申论金句
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 卡片 2: 算力基础设施与“算电协同” -->
+        <div class="flashcard bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col justify-between min-h-[300px] hover:border-blue-400 transition-all">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-bold px-2 py-0.5 rounded bg-blue-100 text-blue-900">速记 02 · 新质生产力</span>
+              <span class="text-xs text-slate-400">国务院常务会议部署</span>
+            </div>
+            <h4 class="font-bold text-slate-900 text-base mb-2">国常会关于算力网络建设的最新战略导向？</h4>
+            <div class="text-sm text-slate-700 space-y-1.5 mt-3">
+              <p>① 核心定位：算力网是<mark class="key-term">人工智能发展的基础支撑</mark>。</p>
+              <p>② 两大协同：推动<mark class="key-term">“算电协同、算网融合”</mark>，加快绿电直连与源网荷储落地。</p>
+              <p>③ 市场机制：支持企业开展关键核心技术攻关，提升骨干光纤网络传输调度效能。</p>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100">
+            <div class="text-xs text-slate-500 mb-2">⭐ 申论核心金句：</div>
+            <div class="bg-slate-50 p-2 rounded text-xs text-slate-800 leading-relaxed relative group">
+              <span id="quote-2">“算力澎湃激活新质引擎，安全严密筑牢发展基石。以算电协同拓宽数智发展空间，以抓铁有痕压实安全生产防线，在统筹高质量发展与高水平安全中行稳致远。”</span>
+              <button onclick="copyQuote('quote-2')" class="mt-2 w-full py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded text-xs font-semibold flex items-center justify-center gap-1 transition-colors">
+                📋 一键复制申论金句
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 卡片 3: 安全生产“三管三必须”与责任闭环 -->
+        <div class="flashcard bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col justify-between min-h-[300px] hover:border-emerald-400 transition-all">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-900">速记 03 · 安全底线治理</span>
+              <span class="text-xs text-slate-400">治本攻坚三年行动</span>
+            </div>
+            <h4 class="font-bold text-slate-900 text-base mb-2">怎样从根源遏制重特大安全事故发生？</h4>
+            <div class="text-sm text-slate-700 space-y-1.5 mt-3">
+              <p>① 严密责任：严格落实<mark class="key-term">“管行业必须管安全、管业务必须管安全、管生产经营必须管安全”</mark>。</p>
+              <p>② 铁腕除弊：坚决整治规章制度空转、<mark class="key-term">违规层层转包</mark>与非法挂靠资质。</p>
+              <p>③ 穿透监管：强化常态化常态执法与严肃追责，牢牢守住人民生命财产安全底线。</p>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100">
+            <div class="text-xs text-slate-500 mb-2">⭐ 申论核心金句：</div>
+            <div class="bg-slate-50 p-2 rounded text-xs text-slate-800 leading-relaxed relative group">
+              <span id="quote-3">“人命关天，发展决不能以牺牲人的生命为代价。把安全责任压实到神经末梢，把隐患整治消灭在萌芽之初，以高水平安全护航中国式现代化建设。”</span>
+              <button onclick="copyQuote('quote-3')" class="mt-2 w-full py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded text-xs font-semibold flex items-center justify-center gap-1 transition-colors">
+                📋 一键复制申论金句
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 卡片 4: 数据产权登记与要素市场化 -->
+        <div class="flashcard bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col justify-between min-h-[300px] hover:border-purple-400 transition-all">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-bold px-2 py-0.5 rounded bg-purple-100 text-purple-900">速记 04 · 数据要素改革</span>
+              <span class="text-xs text-slate-400">国家数据局新政</span>
+            </div>
+            <h4 class="font-bold text-slate-900 text-base mb-2">推行数据产权登记制度对数字经济发展的重大意义？</h4>
+            <div class="text-sm text-slate-700 space-y-1.5 mt-3">
+              <p>① 出具证明：为数据出具权威“身份证”，明晰<mark class="key-term">持有权、使用权、经营权</mark>。</p>
+              <p>② 场景拓宽：全面支撑<mark class="key-term">数据资产入表、抵押融资、作价入股</mark>与场内交易。</p>
+              <p>③ 规范运行：国家数据产权登记服务系统试运行，促进数据要素合规高效流通。</p>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100">
+            <div class="text-xs text-slate-500 mb-2">⭐ 申论核心金句：</div>
+            <div class="bg-slate-50 p-2 rounded text-xs text-slate-800 leading-relaxed relative group">
+              <span id="quote-4">“产权明则交易兴，规则立则要素活。以数据产权登记确权赋能，破除壁垒促进流通共享，让海量数据蓝海全面释放倍增发展潜能。”</span>
+              <button onclick="copyQuote('quote-4')" class="mt-2 w-full py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded text-xs font-semibold flex items-center justify-center gap-1 transition-colors">
+                📋 一键复制申论金句
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 卡片 5: 《市场监督管理所条例》与基层行政法治 -->
+        <div class="flashcard bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col justify-between min-h-[300px] hover:border-amber-400 transition-all md:col-span-2 lg:col-span-2">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-900">速记 05 · 基层治理与行政法治</span>
+              <span class="text-xs text-slate-400">市场监督管理所条例 + 营商环境</span>
+            </div>
+            <h4 class="font-bold text-slate-900 text-base mb-2">《市场监督管理所条例》对基层治理与营商环境提出哪些刚性约束？</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-slate-700 mt-3">
+              <div>
+                <strong class="text-slate-900">体制与法定职责明确：</strong>
+                <p>确立市场监管所为<mark class="key-term">县级市场监管局派出机构</mark>，按经济区域设置，纳入乡镇、街道统一协调，依法行使个体登记、食品安全等日常监管职责。</p>
+              </div>
+              <div>
+                <strong class="text-slate-900">包容审慎与规范执法：</strong>
+                <p>全面推进严格规范公正文明执法，坚决禁止随意检查，<mark class="key-term">最大限度减少对企业正常生产经营的影响</mark>，以规范有温度的执法夯实营商环境沃土。</p>
+              </div>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100">
+            <div class="text-xs text-slate-500 mb-2">⭐ 申论核心金句：</div>
+            <div class="bg-slate-50 p-2 rounded text-xs text-slate-800 leading-relaxed relative group">
+              <span id="quote-5">“法治是最好的营商环境。以条例立规打通基层监管末梢，以无事不扰、有求必应彰显法治温度，在规范监管与精准服务中激发经营主体生机活力。”</span>
+              <button onclick="copyQuote('quote-5')" class="mt-2 w-full py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded text-xs font-semibold flex items-center justify-center gap-1 transition-colors">
+                📋 一键复制申论金句
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 全局轻提示吐司 Toast -->
+  <div id="toast" class="fixed bottom-6 right-6 bg-slate-900 text-white text-sm px-4 py-2.5 rounded-lg shadow-xl transform translate-y-20 opacity-0 transition-all duration-300 z-50 flex items-center gap-2 border border-slate-700">
+    <span id="toastIcon">✅</span>
+    <span id="toastMsg">操作成功</span>
+  </div>
+
+  <!-- 页脚说明 -->
+  <footer class="bg-slate-900 text-slate-400 py-6 border-t border-slate-800 text-xs mt-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div>
+        <p class="font-bold text-slate-300">2026年09月11日《新闻联播》公考时政交互式精读 SPA</p>
+        <p class="text-slate-500 mt-0.5">纯前端架构 · 响应式容器 · 无外部矢量依赖 · 适配国考/省考</p>
+      </div>
+      <div class="flex items-center gap-4 text-slate-400">
+        <span>Tailwind CSS 驱动</span>
+        <span>Chart.js 可视化</span>
+        <span>遮罩背诵引擎</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 核心交互逻辑 JAVASCRIPT -->
+  <script>
+    let isMaskMode = false;
+    let activeSubject = 'all';
+    let currentTab = 'roadmap';
+    let chartsInitialized = false;
+
+    function switchTab(tabId) {
+      currentTab = tabId;
+      document.querySelectorAll('.tab-pane').forEach(pane => {
+        pane.classList.add('hidden');
+      });
+      const activePane = document.getElementById('pane-' + tabId);
+      if (activePane) {
+        activePane.classList.remove('hidden');
+      }
+
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active', 'bg-white', 'text-blue-600', 'border-b-2', 'border-blue-600');
+        btn.classList.add('text-slate-300');
+      });
+      const activeBtn = document.getElementById('tab-' + tabId);
+      if (activeBtn) {
+        activeBtn.classList.add('active');
+        activeBtn.classList.remove('text-slate-300');
+      }
+
+      if (tabId === 'charts' && !chartsInitialized) {
+        setTimeout(initCharts, 50);
+        chartsInitialized = true;
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function toggleMaskMode() {
+      isMaskMode = !isMaskMode;
+      const body = document.body;
+      const maskBtn = document.getElementById('maskToggleBtn');
+      const maskIcon = document.getElementById('maskIcon');
+      const maskText = document.getElementById('maskBtnText');
+      const maskBanner = document.getElementById('maskBanner');
+
+      if (isMaskMode) {
+        body.classList.add('mask-mode-active');
+        maskBtn.classList.remove('bg-amber-600', 'hover:bg-amber-500');
+        maskBtn.classList.add('bg-slate-800', 'text-amber-400', 'border', 'border-amber-400');
+        maskIcon.textContent = '🙈';
+        maskText.textContent = '退出背诵遮罩模式';
+        maskBanner.classList.remove('hidden');
+        showToast('🙈 背诵遮罩已开启！核心关键词已遮盖，点击或悬停即可查验。');
+      } else {
+        body.classList.remove('mask-mode-active');
+        maskBtn.classList.add('bg-amber-600', 'hover:bg-amber-500');
+        maskBtn.classList.remove('bg-slate-800', 'text-amber-400', 'border', 'border-amber-400');
+        maskIcon.textContent = '👁️';
+        maskText.textContent = '开启背诵遮罩模式';
+        maskBanner.classList.add('hidden');
+        showToast('👁️ 已退出背诵遮罩模式');
+      }
+    }
+
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('key-term') && isMaskMode) {
+        e.target.classList.toggle('revealed');
+      }
+    });
+
+    function toggleDrawer(drawerId) {
+      const container = document.getElementById(drawerId);
+      if (!container) return;
+      container.classList.toggle('drawer-open');
+      const arrow = container.querySelector('.drawer-arrow');
+      if (arrow) {
+        if (container.classList.contains('drawer-open')) {
+          arrow.textContent = '▲ 收起讲义';
+        } else {
+          arrow.textContent = '▼ 展开点拨';
+        }
+      }
+    }
+
+    let playbackSpeed = 1.0;
+
+    function setSpeed(speed, btn) {
+      playbackSpeed = speed;
+      const parent = btn.parentElement;
+      parent.querySelectorAll('.speed-btn').forEach(b => {
+        b.classList.remove('bg-blue-100', 'text-blue-800', 'font-bold');
+        b.classList.add('bg-slate-200', 'text-slate-700');
+      });
+      btn.classList.remove('bg-slate-200', 'text-slate-700');
+      btn.classList.add('bg-blue-100', 'text-blue-800', 'font-bold');
+      showToast('🔊 播放速度已调整为 ' + speed + 'x');
+    }
+
+    function simulateAudioPlay(audioId, btn) {
+      if (window.speechSynthesis && window.speechSynthesis.speaking) {
+        window.speechSynthesis.cancel();
+        btn.textContent = '▶';
+        btn.classList.remove('bg-amber-600');
+        btn.classList.add('bg-blue-600');
+        showToast('⏸️ 音频已暂停');
+        return;
+      }
+
+      const drawer = btn.closest('.drawer-container');
+      const scriptElem = drawer.querySelector('.drawer-content strong.text-slate-900');
+      let textToSpeak = "";
+      if (scriptElem && scriptElem.parentElement) {
+        textToSpeak = scriptElem.parentElement.innerText.replace('【录音讲稿纯口语文本（TTS_Script）】：', '').trim();
+      }
+
+      if (window.speechSynthesis && textToSpeak) {
+        const utterance = new SpeechSynthesisUtterance(textToSpeak);
+        utterance.rate = playbackSpeed;
+        utterance.lang = 'zh-CN';
+        
+        btn.textContent = '⏸';
+        btn.classList.remove('bg-blue-600');
+        btn.classList.add('bg-amber-600');
+
+        utterance.onend = function() {
+          btn.textContent = '▶';
+          btn.classList.remove('bg-amber-600');
+          btn.classList.add('bg-blue-600');
+          showToast('✅ 语音讲义播放完毕');
+        };
+
+        window.speechSynthesis.speak(utterance);
+        showToast('▶ 正在通过语音引擎为您朗读特级教师口语讲义...');
+      } else {
+        btn.textContent = '⏸';
+        btn.classList.remove('bg-blue-600');
+        btn.classList.add('bg-amber-600');
+        showToast('▶ 正在模拟播放名师音频讲义（时长约50秒）');
+        setTimeout(() => {
+          btn.textContent = '▶';
+          btn.classList.remove('bg-amber-600');
+          btn.classList.add('bg-blue-600');
+        }, 3000);
+      }
+    }
+
+    function filterSubject(subject) {
+      activeSubject = subject;
+      document.querySelectorAll('.subject-tag').forEach(tag => {
+        if (tag.getAttribute('data-subject') === subject) {
+          tag.classList.remove('bg-slate-800', 'text-slate-300');
+          tag.classList.add('bg-blue-600', 'text-white', 'font-medium');
+        } else {
+          tag.classList.remove('bg-blue-600', 'text-white', 'font-medium');
+          tag.classList.add('bg-slate-800', 'text-slate-300');
+        }
+      });
+      applyFilters();
+    }
+
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+      searchInput.addEventListener('input', () => {
+        applyFilters();
+      });
+    }
+
+    function applyFilters() {
+      const query = (searchInput ? searchInput.value.trim().toLowerCase() : '');
+      const cards = document.querySelectorAll('.content-card');
+
+      cards.forEach(card => {
+        const subjects = (card.getAttribute('data-subject') || '').toLowerCase();
+        const keywords = (card.getAttribute('data-keywords') || '').toLowerCase();
+        const text = card.innerText.toLowerCase();
+
+        const matchSubject = (activeSubject === 'all' || subjects.includes(activeSubject.toLowerCase()));
+        const matchQuery = (!query || text.includes(query) || keywords.includes(query));
+
+        if (matchSubject && matchQuery) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function copyQuote(elementId) {
+      const elem = document.getElementById(elementId);
+      if (!elem) return;
+      const text = elem.innerText.replace(/“|”/g, '').trim();
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('📋 申论高分金句已复制到剪贴板！');
+      }).catch(() => {
+        showToast('❌ 复制失败，请手动选取文字复制');
+      });
+    }
+
+    let toastTimeout = null;
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toastMsg');
+      if (!toast || !toastMsg) return;
+
+      toastMsg.textContent = msg;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      if (toastTimeout) clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 3000);
+    }
+
+    function initCharts() {
+      Chart.defaults.font.family = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+      Chart.defaults.color = '#475569';
+
+      // 图表 1: 8月份中国电商物流主要指标 (柱状图)
+      const ctx1 = document.getElementById('chartLogisticsIndex');
+      if (ctx1) {
+        new Chart(ctx1, {
+          type: 'bar',
+          data: {
+            labels: ['总业务量指数', '农村业务量指数', '综合总指数', '履约率分项指数', '满意度分项指数'],
+            datasets: [{
+              label: '8月份指数点位',
+              data: [130.5, 127.6, 111.5, 102.8, 103.4],
+              backgroundColor: [
+                'rgba(37, 99, 235, 0.85)',
+                'rgba(217, 119, 6, 0.85)',
+                'rgba(16, 185, 129, 0.85)',
+                'rgba(147, 51, 234, 0.85)',
+                'rgba(100, 116, 139, 0.85)'
+              ],
+              borderColor: [
+                '#1d4ed8',
+                '#b45309',
+                '#059669',
+                '#7e22ce',
+                '#475569'
+              ],
+              borderWidth: 1.5,
+              borderRadius: 6
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    return ' 指数数值: ' + context.parsed.y + ' 点';
+                  }
+                }
+              }
+            },
+            scales: {
+              y: {
+                beginAtZero: false,
+                min: 90,
+                max: 140,
+                title: { display: true, text: '指数点位 (基点100)', font: { size: 11 } },
+                grid: { color: '#f1f5f9' }
+              },
+              x: {
+                grid: { display: false },
+                ticks: { font: { size: 10 } }
+              }
+            }
+          }
+        });
+      }
+
+      // 图表 2: 数据产权“三权分置”体系与服务场景 (环形图)
+      const ctx2 = document.getElementById('chartDataRights');
+      if (ctx2) {
+        new Chart(ctx2, {
+          type: 'doughnut',
+          data: {
+            labels: ['数据资源持有权 (35%)', '数据加工使用权 (35%)', '数据产品经营权 (30%)'],
+            datasets: [{
+              data: [35, 35, 30],
+              backgroundColor: [
+                '#2563eb', // 蓝
+                '#d97706', // 琥珀黄
+                '#10b981'  // 绿
+              ],
+              hoverOffset: 6
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: 'bottom',
+                labels: { boxWidth: 12, font: { size: 11 } }
+              },
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    return ' ' + context.label + '：支撑数据入表、抵押融资等';
+                  }
+                }
+              }
+            },
+            cutout: '62%'
+          }
+        });
+      }
+
+      // 图表 3: 全国绿色矿山分级建设数量与产能占比 (水平条形图)
+      const ctx3 = document.getElementById('chartGreenMines');
+      if (ctx3) {
+        new Chart(ctx3, {
+          type: 'bar',
+          indexAxis: 'y',
+          data: {
+            labels: ['省级以上绿色矿山总量(百家)', '省级绿色矿山(百家)', '国家级绿色矿山(百家)', '大中型矿山产能占比(%)'],
+            datasets: [{
+              label: '自然资源部绿色矿山建设成果',
+              data: [56.0, 45.5, 10.5, 80.0],
+              backgroundColor: [
+                'rgba(16, 185, 129, 0.85)',
+                'rgba(37, 99, 235, 0.85)',
+                'rgba(217, 119, 6, 0.85)',
+                'rgba(147, 51, 234, 0.85)'
+              ],
+              borderRadius: 6
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    return ' 指标数值: ' + context.parsed.x;
+                  }
+                }
+              }
+            },
+            scales: {
+              x: {
+                beginAtZero: true,
+                max: 90,
+                title: { display: true, text: '数值 (百家 / %)', font: { size: 11 } },
+                grid: { color: '#f1f5f9' }
+              },
+              y: {
+                grid: { display: false }
+              }
+            }
+          }
+        });
+      }
+
+      // 图表 4: 算力网“算电协同与多层次布局”要素投入 (极区图)
+      const ctx4 = document.getElementById('chartComputePower');
+      if (ctx4) {
+        new Chart(ctx4, {
+          type: 'polarArea',
+          data: {
+            labels: ['骨干光纤网络建设 (30%)', '绿电直连与源网荷储 (25%)', '跨域算力监测调度 (20%)', '关键装备自主研发 (15%)', '供需市场对接应用 (10%)'],
+            datasets: [{
+              data: [30, 25, 20, 15, 10],
+              backgroundColor: [
+                'rgba(37, 99, 235, 0.85)',
+                'rgba(16, 185, 129, 0.85)',
+                'rgba(217, 119, 6, 0.85)',
+                'rgba(147, 51, 234, 0.85)',
+                'rgba(100, 116, 139, 0.75)'
+              ]
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: 'bottom',
+                labels: { boxWidth: 10, font: { size: 10 } }
+              },
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    return ' ' + context.label + ': ' + context.parsed.r + '%';
+                  }
+                }
+              }
+            },
+            scales: {
+              r: {
+                ticks: { display: false }
+              }
+            }
+          }
+        });
+      }
+    }
+  </script>
+</body>
+</html>
